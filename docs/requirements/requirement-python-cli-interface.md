@@ -10,11 +10,11 @@ Define the official command-line entry points, empty-argv behavior, and typed ve
 
 The text-menu picture is `requirement-python-tui`. Join steps and formats are `requirement-domain-videoeditor`. The about page is `requirement-python-about`. The domain sentence stays on the domain file. The logger construct is `requirement-python-cli-logging`. Class homes are `requirement-python-oop`. Concat order is `requirement-video-ffmpeg-pipeline`.
 
-`def main` writes `ChronicleLogger(...)` and then constructs `Cli`. The argument parser runs after that construct and after the debug block. The running `src/VideoEditor/cli.py` still starts the prompt session. The allowed end state is this file. This pass does not change `src/`.
+`def main` writes `ChronicleLogger(...)` and then constructs `Cli`. The argument parser runs after that construct and after the debug block. The running `src/VideoTubeEditor/cli.py` still starts the prompt session. The allowed end state is this file. This pass does not change `src/`.
 
 ### 1.1 Human-facing
 
-**In one sentence:** `video-editor` with no words opens the numbered menu on a terminal, and with no terminal it prints help and stops. `video-join` and `video-speed` call the same entry.
+**In one sentence:** `video-tube-editor` with no words opens the numbered menu on a terminal, and with no terminal it prints help and stops. `video-join` and `video-speed` call the same entry.
 
 | Box | Meaning | Example |
 |-----|---------|---------|
@@ -47,9 +47,9 @@ The text-menu picture is `requirement-python-tui`. Join steps and formats are `r
 
 ### 2.1 Entry points
 
-1. **MUST** expose console script `video-editor` pointing at `VideoEditor.cli:main`, and aliases `video-join` and `video-speed` pointing at the same entry (declared in packaging SSOT).
-2. **MUST** support module execution: `python -m VideoEditor`.
-3. **MUST** keep `def main` in `src/VideoEditor/cli.py` as the single runtime entry. `main` writes `ChronicleLogger(...)` before it constructs `Cli` (`requirement-python-cli-logging`, `requirement-python-oop`).
+1. **MUST** expose console script `video-tube-editor` pointing at `VideoTubeEditor.cli:main`, and aliases `video-join` and `video-speed` pointing at the same entry (declared in packaging SSOT).
+2. **MUST** support module execution: `python -m VideoTubeEditor`.
+3. **MUST** keep `def main` in `src/VideoTubeEditor/cli.py` as the single runtime entry. `main` writes `ChronicleLogger(...)` before it constructs `Cli` (`requirement-python-cli-logging`, `requirement-python-oop`).
 4. **MUST NOT** require root or sudo to run the CLI.
 
 ### 2.2 Empty argv
@@ -65,7 +65,7 @@ The text-menu picture is `requirement-python-tui`. Join steps and formats are `r
 10. **MUST NOT** invent file-operand flags for `join`. Direct `join` with no terminal exits non-zero and tells the operator to use a terminal. Edit **MAY** use `--file`, `--folder`, `--start`, `--end`, `--percent`, `--boomerang`, and `--repeat`. Those flags do not apply to join. `--boomerang` and `--repeat` together **MUST** fail closed before FFmpeg runs.
 11. On a terminal, `join` **MUST** start the join questions on the text screen (rules 16–23). `list-videos` **MUST** list eligible videos and **MUST NOT** join. `edit` without a complete `--file`, `--start`, and `--end` **MUST** ask folder, then file, on the text screen. `list-mp4` lists MP4 files and **MUST NOT** encode. `about` **MUST** open the about page.
 12. With no terminal, `list-videos` **MUST** print the eligible names and return 0. `about` **MUST** print the about page and return 0. Neither draws the text screen.
-13. `help`, `hello`, and `setup` **MUST NOT** draw the text screen. `help` returns 0. `hello` prints `Hello from VideoEditor <version>.` using `__version__`, then the next step `video-editor help`, and returns 0. `setup` returns the code from `requirement-runtime-prerequisites`.
+13. `help`, `hello`, and `setup` **MUST NOT** draw the text screen. `help` returns 0. `hello` prints `Hello from VideoTubeEditor <version>.` using `__version__`, then the next step `video-tube-editor help`, and returns 0. `setup` returns the code from `requirement-runtime-prerequisites`.
 14. `version` **MUST** print `__version__` and **MUST NOT** call pip and **MUST NOT** draw the text screen.
 15. `version-check`, `self-update`, `self-install`, and `self-uninstall` **MUST NOT** open the text screen. The commands are:
 
@@ -105,8 +105,8 @@ video-join self-install
 video-join version-check
 video-join self-update
 video-join self-uninstall --force
-video-editor setup
-python -m VideoEditor
+video-tube-editor setup
+python -m VideoTubeEditor
 ```
 
 ### 2.4 Join questions
@@ -147,9 +147,9 @@ There is no folder question. Esc on the text screen returns to the front board a
 
 | Item | Value |
 |------|--------|
-| **Console scripts** | `video-editor`, `video-join`, and `video-speed` = `VideoEditor.cli:main` |
-| **Module entry** | `src/VideoEditor/__main__.py` → `main()` |
-| **CLI module** | `src/VideoEditor/cli.py` defines `Cli` and `def main` |
+| **Console scripts** | `video-tube-editor`, `video-join`, and `video-speed` = `VideoTubeEditor.cli:main` |
+| **Module entry** | `src/VideoTubeEditor/__main__.py` → `main()` |
+| **CLI module** | `src/VideoTubeEditor/cli.py` defines `Cli` and `def main` |
 | **Empty argv, terminal** | Front board. No join questions. No edit questions. No pip |
 | **Empty argv, no terminal** | Help text. Return 0 |
 | **Parser** | After ChronicleLogger and the debug block |
@@ -196,8 +196,8 @@ On Termux, Git Bash, Windows cmd, or the same class, the person runs `video-join
 
 | ID | Criterion |
 |----|-----------|
-| AC-1 | `video-editor`, `video-join`, and `video-speed` are declared in packaging and call `VideoEditor.cli:main` |
-| AC-2 | `python -m VideoEditor` reaches `main` |
+| AC-1 | `video-tube-editor`, `video-join`, and `video-speed` are declared in packaging and call `VideoTubeEditor.cli:main` |
+| AC-2 | `python -m VideoTubeEditor` reaches `main` |
 | AC-3 | Empty argv on a terminal with `DISPLAY` set opens the window. With `DISPLAY` unset it opens the front board. It does not join and does not run pip |
 | AC-4 | Empty argv with no terminal prints help and returns 0 |
 | AC-5 | Direct `join` with no terminal exits non-zero |
@@ -257,6 +257,7 @@ On Termux, Git Bash, Windows cmd, or the same class, the person runs `video-join
 | 2026-10-10 | Active 1.1.3 | Verb `setup` is typed. It does not open the text menu or the window. The second mention is `requirement-runtime-prerequisites`. `TP-SETUP-02` is have |
 | 2026-10-11 | Active 1.1.4 | Product version is **2.0.0**. Terminologies copies the ship-version term |
 | 2026-10-12 | Active 1.1.5 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
+| 2026-10-12 | Active 1.1.6 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
 
 ---
 

@@ -1,12 +1,12 @@
 #!/bin/sh
 # requirement-python-packaging
-# Maintainer verbs only. video-editor flags are not accepted here.
+# Maintainer verbs only. video-tube-editor flags are not accepted here.
 set -eu
 
 ROOT=$(CDPATH= cd -- "$(dirname "$0")" && pwd)
 cd "$ROOT"
 
-PROJECT="VideoEditor"
+PROJECT="VideoTubeEditor"
 
 out_err() {
     printf '%s\n' "$1" >&2
@@ -19,8 +19,8 @@ import sys
 
 root = sys.argv[1]
 sys.path.insert(0, os.path.join(root, "src"))
-import VideoEditor
-sys.stdout.write(VideoEditor.__version__)
+import VideoTubeEditor
+sys.stdout.write(VideoTubeEditor.__version__)
 PY
 }
 
@@ -28,8 +28,8 @@ VERSION=$(read_version 2>/dev/null || true)
 
 need_version() {
     if [ -z "$VERSION" ]; then
-        out_err "ERROR: Cannot read the package version from src/VideoEditor."
-        out_err "   Next: set __version__ in src/VideoEditor/__init__.py to match pyproject.toml, then ./build.sh version"
+        out_err "ERROR: Cannot read the package version from src/VideoTubeEditor."
+        out_err "   Next: set __version__ in src/VideoTubeEditor/__init__.py to match pyproject.toml, then ./build.sh version"
         exit 1
     fi
 }
@@ -76,7 +76,7 @@ do_setup() {
 
 do_clean() {
     rm -rf build dist .eggs .pytest_cache
-    rm -rf VideoEditor.egg-info src/VideoEditor.egg-info src/VideoJoin.egg-info src/*.egg-info
+    rm -rf VideoTubeEditor.egg-info src/VideoTubeEditor.egg-info src/VideoJoin.egg-info src/*.egg-info
     find . -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true
     find . -type f -name "._*" -delete 2>/dev/null || true
     printf '%s\n' "Clean complete"

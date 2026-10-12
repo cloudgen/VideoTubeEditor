@@ -1,4 +1,4 @@
-# Tests — VideoEditor
+# Tests — VideoTubeEditor
 
 Executable proof for product law. **Design map:** `docs/reviews/test-plan.md`.  
 **RTM:** `docs/reviews/requirement-test-matrix.md`.

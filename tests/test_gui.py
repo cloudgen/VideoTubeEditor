@@ -4,8 +4,8 @@ import tempfile
 import unittest
 from unittest.mock import patch
 
-from VideoEditor.cli import Cli
-from VideoEditor.gui import Gui
+from VideoTubeEditor.cli import Cli
+from VideoTubeEditor.gui import Gui
 
 
 class TestElapsedClock(unittest.TestCase):
@@ -407,12 +407,12 @@ class TestPlayerWidgets(unittest.TestCase):
                 return lengths["seconds"]
 
         class _App:
-            app_name = "VideoEditor"
+            app_name = "VideoTubeEditor"
             version = "1.1.0"
             media = _Media()
 
         gui.app = _App()
-        from VideoEditor.menu_language import MenuLanguage
+        from VideoTubeEditor.menu_language import MenuLanguage
 
         gui.language = MenuLanguage(home="")
         gui._build()
@@ -573,7 +573,7 @@ class TestPlayerWidgets(unittest.TestCase):
             self.skipTest("no DISPLAY")
         import tempfile
 
-        from VideoEditor.menu_language import MenuLanguage
+        from VideoTubeEditor.menu_language import MenuLanguage
 
         gui = Gui()
         try:
@@ -590,7 +590,7 @@ class TestPlayerWidgets(unittest.TestCase):
         gui._gio = gio
 
         class _App:
-            app_name = "VideoEditor"
+            app_name = "VideoTubeEditor"
             version = "1.1.0"
 
         gui.app = _App()

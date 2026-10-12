@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # =============================================================================
-# VideoEditor CLI — text menu and typed verbs from the join and speed domains.
+# VideoTubeEditor CLI — text menu and typed verbs from the join and speed domains.
 # Specialized from VideoJoin. Speed steps live beside the join steps.
 # Law keys: requirement-python-cli-interface, requirement-python-cli-logging,
 #           requirement-python-tui, requirement-python-gui, requirement-python-oop,
@@ -41,8 +41,8 @@ class Cli:
 
     from . import __version__ as VERSION
 
-    APP_NAME = "VideoEditor"
-    CONSOLE_NAME = "video-editor"
+    APP_NAME = "VideoTubeEditor"
+    CONSOLE_NAME = "video-tube-editor"
     PRODUCT_VERBS = (
         "help",
         "version",
@@ -70,10 +70,10 @@ class Cli:
     OUTPUT_SUFFIXES = (".mp4", ".mkv", ".mov")
     AUTHOR_NAME = "Wilgat Wong"
     AUTHOR_EMAIL = "wilgat.wong@gmail.com"
-    HOMEPAGE = "https://github.com/cloudgen/VideoEditor"
+    HOMEPAGE = "https://github.com/cloudgen/VideoTubeEditor"
     LAST_UPDATE = "2026-10-12"
     DOWNLOAD_URL = ""
-    BASIC_USAGE = "video-editor join"
+    BASIC_USAGE = "video-tube-editor join"
     RATIO_MIN = 20.0
     RATIO_MAX = 200.0
 
@@ -673,7 +673,7 @@ def main(argv=None, basedir="", logdir=""):
     if argv is None:
         argv = sys.argv[1:]
     argv = list(argv)
-    from VideoEditor import __version__
+    from VideoTubeEditor import __version__
 
     HostSetup.ensure_geteuid()
     try:
@@ -687,7 +687,7 @@ def main(argv=None, basedir="", logdir=""):
     screen = Cli.opens_text_screen(argv) or Cli.opens_window(argv)
     quiet = screen or ("--json" in argv)
     logger = ChronicleLogger(
-        logname="VideoEditor",
+        logname="VideoTubeEditor",
         is_quiet=quiet,
         basedir=basedir,
         logdir=logdir,

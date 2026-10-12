@@ -1968,7 +1968,7 @@ class Gui:
 
     def _confirm(self, message: str, on_yes) -> None:
         gtk = self._gtk
-        dialog = gtk.Window(title="VideoEditor", transient_for=self._window, modal=True)
+        dialog = gtk.Window(title="VideoTubeEditor", transient_for=self._window, modal=True)
         box = gtk.Box(orientation=gtk.Orientation.VERTICAL, spacing=8)
         box.set_margin_top(12)
         box.set_margin_bottom(12)

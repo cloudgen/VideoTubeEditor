@@ -3,9 +3,9 @@ requires = ["setuptools>=61", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "VideoEditor"
-version = "1.0.0"
-description = "VideoEditor joins two local videos and cuts, speeds, or boomerangs an MP4, using FFmpeg."
+name = "VideoTubeEditor"
+version = "1.0.1"
+description = "VideoTubeEditor joins two local videos and cuts, speeds, or boomerangs an MP4, using FFmpeg."
 readme = "README.md"
 requires-python = ">=3.11"
 license = {text = "MIT"}
@@ -21,16 +21,16 @@ dependencies = [
 
 # Official project links (this is what shows on PyPI!)
 [project.urls]
-Homepage = "https://github.com/cloudgen/VideoEditor"
-Repository = "https://github.com/cloudgen/VideoEditor"
-Issues = "https://github.com/cloudgen/VideoEditor/issues"
+Homepage = "https://github.com/cloudgen/VideoTubeEditor"
+Repository = "https://github.com/cloudgen/VideoTubeEditor"
+Issues = "https://github.com/cloudgen/VideoTubeEditor/issues"
 
-# video-editor is the combined console script. video-join and video-speed
+# video-tube-editor is the combined console script. video-join and video-speed
 # call the same entry so both inherited verbs stay reachable.
 [project.scripts]
-video-editor = "VideoEditor.cli:main"
-video-join = "VideoEditor.cli:main"
-video-speed = "VideoEditor.cli:main"
+video-tube-editor = "VideoTubeEditor.cli:main"
+video-join = "VideoTubeEditor.cli:main"
+video-speed = "VideoTubeEditor.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]

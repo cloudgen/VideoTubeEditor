@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-class-software-dev.md
-**Status**: Active (Version 1.1.6 – VideoEditor software-development class law + residual stack)
+**Status**: Active (Version 1.1.6 – VideoTubeEditor software-development class law + residual stack)
 **Area**: class
 **Key**: `requirement-class-software-dev`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -97,7 +97,7 @@ This file is class law plus the residual SSOT. It is not a second copy of domain
 | **Project class** | software-development |
 | **Class requirement basename** | `requirement-class-software-dev.md` |
 | **Primary language(s)** | Python |
-| **Language role** | primary only for the runtime package under `src/VideoEditor/` |
+| **Language role** | primary only for the runtime package under `src/VideoTubeEditor/` |
 | **Execution model** | interpreted package. Optional Cython or `build.sh` tooling is not required for the CLI |
 | **Toolchain / interpreter** | CPython |
 | **Toolchain version policy** | range declared in `pyproject.toml` (`requires-python`). Re-verify before advertising a specific minor as tested |
@@ -108,9 +108,9 @@ This file is class law plus the residual SSOT. It is not a second copy of domain
 | **Linter/formatter** | none as project law |
 | **Primary runtime / OS family** | Multi-OS where Python and FFmpeg run. Linux is the tested picture-window path. The Windows host contract is `requirement-python-windows` |
 | **Architectures supported** | any architecture with CPython and an FFmpeg binary |
-| **Git surface** | used — remote `https://github.com/cloudgen/VideoEditor` (`git@github.com:cloudgen/VideoEditor.git`) |
-| **Ship surface** | installable Python package `VideoJoin`; console script `video-join`; module form `python -m VideoEditor` |
-| **Product version SSOT** | `src/VideoEditor/__init__.py` → `__version__` and `pyproject.toml` `[project].version` stay equal when either is bumped (current: **1.0.0**) |
+| **Git surface** | used — remote `https://github.com/cloudgen/VideoTubeEditor` (`git@github.com:cloudgen/VideoTubeEditor.git`) |
+| **Ship surface** | installable Python package `VideoJoin`; console script `video-join`; module form `python -m VideoTubeEditor` |
+| **Product version SSOT** | `src/VideoTubeEditor/__init__.py` → `__version__` and `pyproject.toml` `[project].version` stay equal when either is bumped (current: **1.0.0**) |
 | **Install mode** | pip / local package. Not a shell online-install product |
 | **Type 1 elevation** | intentionally absent. No root or sudo product surface |
 | **Actor / role / subject / approver** | **Considered — no dest approver.** The human operator of `video-join` is the only actor. No dest approval machine. **None** is valid. Do not add an actor requirement file |
@@ -241,6 +241,7 @@ On Termux, Git Bash, Windows cmd, or the same class, VideoJoin runs as the norma
 | 2026-10-11 | Active 1.1.4 | Primary runtime / OS family points at `requirement-python-windows`. Product version stays **1.1.0** |
 | 2026-10-11 | Active 1.1.5 | Product version current is **2.0.0**. Terminologies copies the ship-version term |
 | 2026-10-12 | Active 1.1.6 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
+| 2026-10-12 | Active 1.1.7 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
 
 ---
 

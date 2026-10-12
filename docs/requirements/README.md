@@ -1,23 +1,23 @@
 # Requirements
 
-Authoritative specialized product law for **VideoEditor** lives here.
+Authoritative specialized product law for **VideoTubeEditor** lives here.
 
-**Current state (2026-10-12):** Specialized **software-development** product. Left genesis. Registry is populated — see `index.md`. One Active domain file. Product version is **1.0.0**.
+**Current state (2026-10-12):** Specialized **software-development** product. Left genesis. Registry is populated — see `index.md`. One Active domain file. Product version is **1.0.1**.
 
 ## Product identity (summary)
 
 | Field | Value |
 |-------|--------|
-| Product / package | `VideoEditor` |
-| Version SSOT | **`1.0.0`** (`pyproject.toml` + `src/VideoEditor/__init__.py`) |
-| Product README SSOT | Root `README.md` (app-name, short description, target version **1.0.0**). Sections and pictures: `requirement-python-readme` |
-| Ship surface | Python package; console scripts **`video-editor`**, **`video-join`**, **`video-speed`**; module `python -m VideoEditor` |
-| Install mode | **pip / local package** (`pip install VideoEditor`; this tree **1.0.0**; checkout `pip install -e .`) — not shell Type O |
+| Product / package | `VideoTubeEditor` |
+| Version SSOT | **`1.0.1`** (`pyproject.toml` + `src/VideoTubeEditor/__init__.py`) |
+| Product README SSOT | Root `README.md` (app-name, short description, target version **1.0.1**). Sections and pictures: `requirement-python-readme` |
+| Ship surface | Python package; console scripts **`video-tube-editor`**, **`video-join`**, **`video-speed`**; module `python -m VideoTubeEditor` |
+| Install mode | **pip / local package** (`pip install VideoTubeEditor`; this tree **1.0.1**; checkout `pip install -e .`) — not shell Type O |
 | Domain surface | `requirement-domain-videoeditor` — four pillars (join, edit, help, about). `requirement-domain-videojoin` is Superseded |
 | Text menu | `requirement-python-tui` — front rows join, edit, system-log, language, self-management, Exit. Default path word is `Path` |
-| Menu language | `requirement-python-cli-language` — row 4, thirteen codes, leaf `~/.local/VideoEditor/language`. Window controls use the same codes. `language` is not an argv verb |
+| Menu language | `requirement-python-cli-language` — row 4, thirteen codes, leaf `~/.local/VideoTubeEditor/language`. Window controls use the same codes. `language` is not an argv verb |
 | Status logger | `requirement-python-cli-logging` — `ChronicleLogger(...)` inside `def main`. Required |
-| Class map | `requirement-python-oop` — join classes and edit classes under `src/VideoEditor/` |
+| Class map | `requirement-python-oop` — join classes and edit classes under `src/VideoTubeEditor/` |
 | Encode ops | `requirement-video-ffmpeg-pipeline` — join stream-copy then re-encode; edit cut, speed, one tail (none, boomerang, or repeat); unique temps; **`shutil.move`** publish |
 | Coding style | `requirement-python-coding-style` — temps + `shutil.move`; gate **`CL-PYTHON-SHUTIL-MOVE-PUBLISH`** |
 | Runtime tools | **FFmpeg** on PATH for a join or an encode. **OpenCV** (`opencv-python-headless>=5.0.0.93`) for duration. **ChronicleLogger>=1.3.1** required. Live `pyproject.toml` declares both floors |

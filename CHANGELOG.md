@@ -1,7 +1,16 @@
 # CHANGELOG
 
-All notable changes to **VideoEditor** are documented here.
-Version SSOT: `pyproject.toml` `[project].version` and `src/VideoEditor/__init__.py` `__version__`.
+All notable changes to **VideoTubeEditor** are documented here.
+Version SSOT: `pyproject.toml` `[project].version` and `src/VideoTubeEditor/__init__.py` `__version__`.
+
+## [1.0.1] - 2026-10-12
+
+### Changed
+
+- The distribution name is VideoTubeEditor. The console script is `video-tube-editor`. The module is `python -m VideoTubeEditor`. Aliases `video-join` and `video-speed` stay. The language leaf is `~/.local/VideoTubeEditor/language`. `VIDEOTUBEEDITOR_LANG` overrides that leaf for one process and does not write it.
+- Product version is **1.0.1**. `pyproject.toml`, `__version__`, the README Version badge, this section, and the current SECURITY row use that string.
+- Public home is `https://github.com/cloudgen/VideoTubeEditor` (`git@github.com:cloudgen/VideoTubeEditor.git`).
+- The four pictures in `screenshots/` are captures of this window. The title is VideoTubeEditor 1.0.1. The header on those captures is Traditional Chinese. Run has not been pressed, so the process bar reads 處理 0%.
 
 ## [1.0.0] - 2026-10-12
 

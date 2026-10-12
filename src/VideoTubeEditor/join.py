@@ -1,5 +1,5 @@
 # =============================================================================
-# Two-file concat for VideoEditor.
+# Two-file concat for VideoTubeEditor.
 # requirement-python-oop — class Join.
 # requirement-domain-videojoin — discover, pick, output name.
 # requirement-video-ffmpeg-pipeline — copy, then fail-closed re-encode.

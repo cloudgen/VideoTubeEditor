@@ -6,18 +6,18 @@
 
 ## 1. Purpose
 
-This file is the X11 window for VideoEditor. A bare start on an interactive terminal opens this window when `DISPLAY` is set. The verb `tui` opens the text menu in `requirement-python-tui` and does not change that menu. Typed verbs stay on `requirement-python-cli-interface`.
+This file is the X11 window for VideoTubeEditor. A bare start on an interactive terminal opens this window when `DISPLAY` is set. The verb `tui` opens the text menu in `requirement-python-tui` and does not change that menu. Typed verbs stay on `requirement-python-cli-interface`.
 
 The window has two groups. One is visible and the other is hidden. Edit is the first group. Join is the second group. A project-root line sits under the header. join and edit are tabs on the left of the group. Each group splits left and right. Edit puts Input Video, Edit Controls, and Looping Options on the left, and Output & Result on the right. Join puts the two sources on the left and the same output column on the right. A process bar sits on the bottom of the window. The window and the content column use light gray `#d3d3d3`. Each source card and each output card uses white `#ffffff`, including the video area and the controls on that card. The header bar and the process bar keep their theme colors. Each elapsed bar is a timeline thumbnail preview: a strip of scaled frames, a scrubber handle, a hover timestamp, and click or drag to move the picture.
 
 ### 1.1 Human-facing
 
-**In one sentence:** On a terminal with an X11 display, `video-editor` opens a window with a project-root line, an edit source player, a resulting-video player, three join players, and a process bar, and `video-editor tui` opens the text menu.
+**In one sentence:** On a terminal with an X11 display, `video-tube-editor` opens a window with a project-root line, an edit source player, a resulting-video player, three join players, and a process bar, and `video-tube-editor tui` opens the text menu.
 
 | Box | Meaning | Example |
 |-----|---------|---------|
-| You / this login | Person at a local X session or an `ssh -X` session | `video-editor` |
-| The other role | Class `Gui` | `src/VideoEditor/gui.py` |
+| You / this login | Person at a local X session or an `ssh -X` session | `video-tube-editor` |
+| The other role | Class `Gui` | `src/VideoTubeEditor/gui.py` |
 | Not this file | The curses frame, the FFmpeg graph, and the typed `join` questions | TUI, pipeline, and CLI requirements |
 
 | Includes | Excludes |
@@ -31,15 +31,15 @@ The window has two groups. One is visible and the other is hidden. Edit is the f
 
 ## 2. Core Rules (Mandatory)
 
-1. Class `Gui` in `src/VideoEditor/gui.py` owns this window. `Cli` constructs it and calls `open`. `cli.py` does not build widgets.
+1. Class `Gui` in `src/VideoTubeEditor/gui.py` owns this window. `Cli` constructs it and calls `open`. `cli.py` does not build widgets.
 2. A bare start opens this window when stdin and stdout are terminals and `DISPLAY` is non-empty. That covers a local X session, XWayland when `DISPLAY` is set, and `ssh -X`. The GDK backend is X11. `WAYLAND_DISPLAY` alone does not open the window.
-3. When that X server refuses the connection, or GTK 4 cannot be imported, the process exits non-zero and the next step is `video-editor tui`. It does not draw a partial window and it does not hang.
-4. A bare start with `DISPLAY` unset opens the text menu. A bare start with no terminal prints help and returns 0. `video-editor tui` on a terminal opens the text menu even when `DISPLAY` is set. `tui` with no terminal exits non-zero. `tui` is not a numbered row.
+3. When that X server refuses the connection, or GTK 4 cannot be imported, the process exits non-zero and the next step is `video-tube-editor tui`. It does not draw a partial window and it does not hang.
+4. A bare start with `DISPLAY` unset opens the text menu. A bare start with no terminal prints help and returns 0. `video-tube-editor tui` on a terminal opens the text menu even when `DISPLAY` is set. `tui` with no terminal exits non-zero. `tui` is not a numbered row.
 5. `join`, `edit`, `list-videos`, `list-mp4`, `help`, `about`, `hello`, `version`, the pip verbs, `--json`, and a complete edit job stay on their current paths and do not open this window.
 6. The menu in the window shows join, edit, system-log, language, self-management, and Exit. Those labels have no row number. The text menu keeps **1**, **2**, **3**, **4**, **8**, and **9**. Self-management opens **82**–**87**. Row **81** stays omitted. `help` and `tui` stay off this menu. A framed project-root line sits under the header. It shows a folder icon, the translated label Project Root, and the absolute current working directory. The directory is selectable and is not translated. join and edit sit in a strip directly above the stack. That strip shares the stack’s left edge and width. The label for the visible video group is highlighted, and that highlight meets the top edge of the group. system-log, language, and self-management hide both video groups and clear that highlight. Leaving a group pauses the players on that group. A process bar sits on the bottom of the window.
 7. The Edit left side is an Input Video card, then Edit Controls and Looping Options side by side. Input Video has the format token `MP4:`, one **Select file** button, the player, and the time bar. That time bar, and every player time bar, is the timeline thumbnail preview in rule 14. Edit Controls has Start, Pause, Stop, a jump field whose placeholder is `00:00.00`, Go To, the cut Start and End, Mark start, Mark end, and Percent. Elapsed time sits on the left of the bar as `MM:SS.CC` (minutes at least two digits and free to grow, seconds `00`–`59`, centiseconds). Percent is a scale and a spin from 20–200 and defaults to 100. The two stay equal. Looping Options is three switches: Boomerang, Repeat, and None. Exactly one is on. The window starts on None. Turning one on clears the others. Turning the last one off returns to None. Boomerang appends the reverse. Repeat appends the clip so it plays twice. The Edit right side is an Output & Result card: **Run**, the output path, the result line, Generated, and a Resulting Video card. That player has the elapsed time bar and Play and Stop. When Run starts, that player is cleared and Play, Stop, and the time bar are disabled. When Run finishes and the output file is on disk, the player loads that file and those controls are enabled. When Run finishes without that file, the player stays cleared and those controls stay disabled. Play and Stop do not start or kill FFmpeg.
 8. Mark start and Mark end store the player position into the cut start and cut end. Run uses those values with the existing encoder. The output filename keeps the one-decimal pattern. The OpenCV duration is the bound. A reversed mark or an end past that duration does not start FFmpeg.
-9. The Join left side has Video 1 above Video 2. Each is a titled card with a path and a **Select file** button. The chooser accepts `.mp4`, `.mov`, `.mkv`, `.avi`, and `.m4v`. The same path cannot be chosen twice. The chooser lists files on the computer that runs `video-editor`, including the remote host under `ssh -X`. Under each source path is a player with the elapsed time bar and Play and Stop. The Join right side is the same Output & Result column as Edit, plus the output name. The default name is `{stem1} + {stem2}.mp4`. The write line names the current working directory and that file. **Run** calls `Join.run`. The Resulting Video player is the third player, with the same bar and Play and Stop. When Run starts, that generated player is cleared and Play, Stop, and the time bar are disabled. The two source players stay loaded. When Run finishes and the output file is on disk, the generated player loads that file and those controls are enabled. When Run finishes without that file, the generated player stays cleared and those controls stay disabled. Join has three players. Play and Stop do not start or kill the concat.
+9. The Join left side has Video 1 above Video 2. Each is a titled card with a path and a **Select file** button. The chooser accepts `.mp4`, `.mov`, `.mkv`, `.avi`, and `.m4v`. The same path cannot be chosen twice. The chooser lists files on the computer that runs `video-tube-editor`, including the remote host under `ssh -X`. Under each source path is a player with the elapsed time bar and Play and Stop. The Join right side is the same Output & Result column as Edit, plus the output name. The default name is `{stem1} + {stem2}.mp4`. The write line names the current working directory and that file. **Run** calls `Join.run`. The Resulting Video player is the third player, with the same bar and Play and Stop. When Run starts, that generated player is cleared and Play, Stop, and the time bar are disabled. The two source players stay loaded. When Run finishes and the output file is on disk, the generated player loads that file and those controls are enabled. When Run finishes without that file, the generated player stays cleared and those controls stay disabled. Join has three players. Play and Stop do not start or kill the concat.
 10. A long encode runs off the GTK main loop. Before that work starts, the generated player for the running group is cleared and its controls are disabled. The process bar and the visible result show `please wait for time consuming process`. That sentence is not translated. The bar fraction is 0 while the sentence is showing. The bar is not a live FFmpeg ticker. When the work finishes and the output file is on disk, the player loads that file, its controls are enabled, the output total shows that file’s duration, and the bar reads Process 100% at fraction 1. A later run that writes a different duration replaces that total. When the work finishes without that file, the player stays cleared, those controls stay disabled, the output total returns to `00:00.00`, and the bar returns to Process 0% at fraction 0. Idle, including a capture taken before Run, is Process 0%. Stop on the player does not kill an encode that has already started. Close waits until that encode finishes and keeps the wait sentence on the bar. The thread create and start lines go through the one ChronicleLogger with `component` `Gui`.
 11. The window may open when FFmpeg or the GStreamer playback plugins are missing. Playback controls stay disabled when the player cannot be created. Run still fails closed before FFmpeg is spawned. GTK 4 and GStreamer are host packages, not pip dependencies.
 12. Language strings for the menu and for the window controls come from `MenuLanguage`. A language pick redraws the open window, including an icon button, without dropping the icon. The window translates button names and captions: Select file, Start, Pause, Stop, Play, Go To, Mark start, Mark end, the cut Start and End, Percent, Tail, None, Boomerang, Repeat, Run, Output, Output name, Generated, Video 1, Video 2, Project Root, Input Video, Edit Controls, Looping Options, Output & Result, Resulting Video, Process, View, Clear, Yes, and No, plus the short sentences the window itself writes. English Go To is the current English word. The other codes keep their existing go-to words. The elapsed clock, the directory on the project-root line, the product name, the version, the format token MP4, and the About page stay as they are. The widget paints `MP4:` from that token. The text-menu path word stays Path. Leaf command tokens stay the English tokens. The wait sentence stays `please wait for time consuming process`. Join command lines, pip output, and FFmpeg sentences stay English. Pip rows call `SelfManage` and do not use sudo. Self-uninstall asks before it runs. Log view and clear use `SystemLog` and its folder fence.
@@ -50,9 +50,9 @@ The window has two groups. One is visible and the other is hidden. Edit is the f
 
 | Item | Value |
 |------|--------|
-| **Class** | `Gui` in `src/VideoEditor/gui.py` |
-| **Open** | `video-editor` on a terminal with `DISPLAY` set |
-| **Text menu** | `video-editor tui` |
+| **Class** | `Gui` in `src/VideoTubeEditor/gui.py` |
+| **Open** | `video-tube-editor` on a terminal with `DISPLAY` set |
+| **Text menu** | `video-tube-editor tui` |
 | **Groups** | Edit visible hides Join. Join visible hides Edit |
 | **Project root** | Folder icon, translated Project Root, absolute current working directory |
 | **Process bar** | Idle and a finish without a file: Process 0%. Busy: the untranslated wait sentence. A file on disk: Process 100% |
@@ -105,7 +105,7 @@ The window has two groups. One is visible and the other is hidden. Edit is the f
 | ID | Criterion |
 |----|-----------|
 | AC-1 | Bare start with `DISPLAY` and a terminal opens this window and does not run pip |
-| AC-2 | `video-editor tui` opens the existing text menu |
+| AC-2 | `video-tube-editor tui` opens the existing text menu |
 | AC-3 | Edit and Join are separate groups. Each puts the source or sources on the left and the output on the right |
 | AC-4 | The elapsed label is `MM:SS.CC`, and Mark start / Mark end fill the cut bounds |
 | AC-5 | Join offers two file buttons and refuses the same path twice |
@@ -157,7 +157,7 @@ The window explains seven parts. Each part says what it is, where it sits, and t
 | 3 | Open the language list | `screenshots/gui-language.png` |
 | 4 | Open self-management | `screenshots/gui-self-management.png` |
 
-The four captures are the current window: light gray canvas, white cards, thumbnail strips on loaded players, title VideoEditor 1.0.0, and a Traditional Chinese header.
+The four captures are the current window: light gray canvas, white cards, thumbnail strips on loaded players, title VideoTubeEditor 1.0.1, and a Traditional Chinese header.
 
 ## Terminologies
 
@@ -249,3 +249,4 @@ The four captures are the current window: light gray canvas, white cards, thumbn
 | 2026-10-11 | Active 1.6.3 | The output player’s total is replaced with the duration of each regenerated file |
 | 2026-10-12 | Active 1.6.4 | Each elapsed bar is a timeline thumbnail preview. The four captures still show the earlier canvas |
 | 2026-10-12 | Active 1.6.5 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
+| 2026-10-12 | Active 1.6.6 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |

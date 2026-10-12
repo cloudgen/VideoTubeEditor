@@ -6,37 +6,37 @@
 
 ## 1. Purpose
 
-Define the packaging SSOT for the VideoEditor Python distribution: `pyproject.toml`, metadata, dependencies, console entry points, and version consistency.
+Define the packaging SSOT for the VideoTubeEditor Python distribution: `pyproject.toml`, metadata, dependencies, console entry points, and version consistency.
 
 This file owns the ChronicleLogger floor together with `requirement-runtime-prerequisites`. There is no separate dependency-management requirement.
 
 ### 1.1 Human-facing
 
-**In one sentence:** VideoEditor is a pip package named VideoEditor, version 1.0.0, and ChronicleLogger and OpenCV are required dependencies.
+**In one sentence:** VideoTubeEditor is a pip package named VideoTubeEditor, version 1.0.1, and ChronicleLogger and OpenCV are required dependencies.
 
 | Box | Meaning | Example |
 |-----|---------|---------|
-| You / this login | Person installing the package | `python -m pip install VideoEditor` |
+| You / this login | Person installing the package | `python -m pip install VideoTubeEditor` |
 | The other role | The manifest | `pyproject.toml` names the version, the console script, and the dependencies |
 | Not this file | What the menu does after install, and how FFmpeg concatenates | CLI, TUI, and pipeline requirements |
 
 | Includes | Excludes |
 |----------|----------|
-| Package name VideoEditor, version 1.0.0, console scripts `video-editor`, `video-join`, and `video-speed`, required `ChronicleLogger>=1.3.1` and `opencv-python-headless>=5.0.0.93` | Re-exporting ChronicleLogger from the VideoEditor package |
+| Package name VideoTubeEditor, version 1.0.1, console scripts `video-tube-editor`, `video-join`, and `video-speed`, required `ChronicleLogger>=1.3.1` and `opencv-python-headless>=5.0.0.93` | Re-exporting ChronicleLogger from the VideoTubeEditor package |
 | Manifest floor `ChronicleLogger>=1.3.1`, same as this law | Calling the logger optional, or leaving the manifest at `>=1.2.3` |
 | MIT license, homepage, Python range as declared | A claim that pip installs FFmpeg |
 
 | Surface | What you open | What for |
 |---------|---------------|----------|
 | `pyproject.toml` | `[project]` | Name, version, dependencies, console script |
-| `src/VideoEditor/__init__.py` | `__version__` | The same version string |
-| pip | Install | `python -m pip install VideoEditor` |
+| `src/VideoTubeEditor/__init__.py` | `__version__` | The same version string |
+| pip | Install | `python -m pip install VideoTubeEditor` |
 
 | You do… | What it means | What you type |
 |---------|---------------|---------------|
-| Install | pip installs VideoEditor and the required status library. It does not install FFmpeg. | `python -m pip install VideoEditor` |
+| Install | pip installs VideoTubeEditor and the required status library. It does not install FFmpeg. | `python -m pip install VideoTubeEditor` |
 | Check the version | The badge, the manifest, and `__version__` are the same string. | Open `pyproject.toml` and `__init__.py` |
-| Import the package | You get `__version__` and `main`. You do not get ChronicleLogger from this package. | `python -c "import VideoEditor"` |
+| Import the package | You get `__version__` and `main`. You do not get ChronicleLogger from this package. | `python -c "import VideoTubeEditor"` |
 
 ## 2. Core Rules (Mandatory)
 
@@ -49,9 +49,9 @@ This file owns the ChronicleLogger floor together with `requirement-runtime-prer
 
 ### 2.2 Version SSOT
 
-5. The package version in `pyproject.toml` and `src/VideoEditor/__init__.py` (`__version__`) **MUST** match when a release is claimed.
+5. The package version in `pyproject.toml` and `src/VideoTubeEditor/__init__.py` (`__version__`) **MUST** match when a release is claimed.
 6. Bumping either **MUST** update both in the same change.
-7. **MUST NOT** invent a third version constant. Display code **MUST NOT** keep a second literal, including a fallback of an older release (`requirement-python-oop`). The current release string is `1.0.0`. A version bump is a user order, not a side effect of editing this file.
+7. **MUST NOT** invent a third version constant. Display code **MUST NOT** keep a second literal, including a fallback of an older release (`requirement-python-oop`). The current release string is `1.0.1`. A version bump is a user order, not a side effect of editing this file.
 
 ### 2.3 Dependencies
 
@@ -59,17 +59,17 @@ This file owns the ChronicleLogger floor together with `requirement-runtime-prer
 9. ChronicleLogger **MUST** be a required dependency at floor `ChronicleLogger>=1.3.1`. OpenCV **MUST** be a required dependency at floor `opencv-python-headless>=5.0.0.93`. Neither **MUST** be marked optional. The live `pyproject.toml` declares both floors. `requires-python` **MUST** be `>=3.11`.
 10. System tools (FFmpeg, and GTK 4 plus GStreamer for the window in `requirement-python-gui`) **MUST NOT** be declared as pip packages. Document FFmpeg under `requirement-runtime-prerequisites`. The interpreter module `_curses` **MUST NOT** be declared as a pip package, and `windows-curses` **MUST NOT** be added to `pyproject.toml`. A missing `_curses` is avoided with `try` / `except ImportError` as `requirement-runtime-prerequisites` requires. Verb `setup` on Windows **MAY** run `python -m pip install windows-curses` when that import fails. That install stays on `requirement-runtime-prerequisites`. It **MUST NOT** become a `pyproject.toml` entry, and the load-time handler **MUST NOT** install it.
 11. **MUST NOT** commit secrets or private index passwords into packaging files.
-12. **MUST NOT** re-export `ChronicleLogger` from the VideoEditor package.
+12. **MUST NOT** re-export `ChronicleLogger` from the VideoTubeEditor package.
 
 ### 2.4 Entry points
 
-13. **MUST** declare console scripts `video-editor`, `video-join`, and `video-speed`, each → `VideoEditor.cli:main`.
-14. The entry function **MUST** stay `def main` in `src/VideoEditor/cli.py`. `main` constructs ChronicleLogger and then `Cli` (`requirement-python-cli-logging`, `requirement-python-oop`).
+13. **MUST** declare console scripts `video-tube-editor`, `video-join`, and `video-speed`, each → `VideoTubeEditor.cli:main`.
+14. The entry function **MUST** stay `def main` in `src/VideoTubeEditor/cli.py`. `main` constructs ChronicleLogger and then `Cli` (`requirement-python-cli-logging`, `requirement-python-oop`).
 
 ### 2.5 Build / release helpers
 
 15. Optional `build.sh` / Cython tooling **MAY** exist for maintainer packaging.
-16. **MUST** keep helper scripts consistent with `pyproject.toml` identity (project name VideoEditor).
+16. **MUST** keep helper scripts consistent with `pyproject.toml` identity (project name VideoTubeEditor).
 17. Generated `build/` and `dist/` **MUST NOT** be treated as source SSOT.
 
 ### 2.6 Implementation Notes (this project)
@@ -77,19 +77,19 @@ This file owns the ChronicleLogger floor together with `requirement-runtime-prer
 | Item | Value |
 |------|--------|
 | **Manifest** | `pyproject.toml` |
-| **Project name** | `VideoEditor` |
-| **Version** | `1.0.0` |
+| **Project name** | `VideoTubeEditor` |
+| **Version** | `1.0.1` |
 | **requires-python** | `>=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*` (as declared — re-verify support claims before marketing) |
 | **Dependencies (law)** | `opencv-python-headless>=5.0.0.93` and `ChronicleLogger>=1.3.1`, both required. `_curses` is not a pip dependency. `windows-curses` is not a `pyproject.toml` entry. The import uses `try`. Verb `setup` may install `windows-curses` on Windows when the import fails |
 | **Dependencies (live manifest)** | Same two floors. `requires-python` is `>=3.11` |
 | **Build backend** | `setuptools.build_meta` |
-| **Console scripts** | `video-editor`, `video-join`, and `video-speed` = `VideoEditor.cli:main` |
-| **Homepage / repo** | `https://github.com/cloudgen/VideoEditor` |
+| **Console scripts** | `video-tube-editor`, `video-join`, and `video-speed` = `VideoTubeEditor.cli:main` |
+| **Homepage / repo** | `https://github.com/cloudgen/VideoTubeEditor` |
 | **Maintainer build helper** | `build.sh` |
 | **License** | MIT |
 | **Public package exports** | `__version__`, `main` only. **MUST NOT** re-export `ChronicleLogger` |
 | **User docs** | Root `README.md` Quick Installation documents pip and **MUST NOT** claim pip installs FFmpeg. This pass does not edit that README |
-| **README version badge** | Must match packaging version (`1.0.0`) |
+| **README version badge** | Must match packaging version (`1.0.1`) |
 
 ### 2.7 Why This Requirement Exists (CIAO)
 
@@ -99,7 +99,7 @@ This file owns the ChronicleLogger floor together with `requirement-runtime-prer
 
 ## Under command line for normal user only
 
-On Termux, Git Bash, Windows cmd, or the same class, install and upgrade use pip as the normal user. **This requirement:** do not use administrator privilege, `sudo`, `apt`, or a dedicated system user to install VideoEditor. Do not pipe a downloaded script into a shell. Type 1 and Type 2 are unused on Termux, Git Bash, and Windows cmd. Git Bash and Windows cmd do not call Termux `pkg`. The install line is `python -m pip install VideoEditor`.
+On Termux, Git Bash, Windows cmd, or the same class, install and upgrade use pip as the normal user. **This requirement:** do not use administrator privilege, `sudo`, `apt`, or a dedicated system user to install VideoTubeEditor. Do not pipe a downloaded script into a shell. Type 1 and Type 2 are unused on Termux, Git Bash, and Windows cmd. Git Bash and Windows cmd do not call Termux `pkg`. The install line is `python -m pip install VideoTubeEditor`.
 
 ## 3. Design Principles (CIAO / CIAO-Lite)
 
@@ -127,10 +127,10 @@ On Termux, Git Bash, Windows cmd, or the same class, install and upgrade use pip
 
 | ID | Criterion |
 |----|-----------|
-| AC-1 | `pyproject.toml` names VideoEditor |
+| AC-1 | `pyproject.toml` names VideoTubeEditor |
 | AC-2 | Console script `video-join` is declared |
 | AC-3 | Law and the live manifest both require `ChronicleLogger>=1.3.1` |
-| AC-4 | Version matches `__init__.py` when a release is claimed (`1.0.0`) |
+| AC-4 | Version matches `__init__.py` when a release is claimed (`1.0.1`) |
 | AC-5 | FFmpeg is external, not a pip dependency |
 | AC-6 | Public exports are `__version__` and `main` only |
 | AC-7 | `_curses` is not a pip dependency. `windows-curses` is absent from `pyproject.toml`. A missing module is avoided with `try` / `except ImportError`. Verb `setup` may install `windows-curses` on Windows when the import fails |
@@ -183,6 +183,7 @@ On Termux, Git Bash, Windows cmd, or the same class, install and upgrade use pip
 | 2026-10-10 | Active 1.2.5 | Homepage, repository, and issues are `https://github.com/cloudgen/VideoEditor` |
 | 2026-10-11 | Active 1.2.6 | Current release string is **2.0.0**. Terminologies copies the ship-version term |
 | 2026-10-12 | Active 1.2.7 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
+| 2026-10-12 | Active 1.2.8 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
 
 ---
 
