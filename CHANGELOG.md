@@ -3,6 +3,22 @@
 All notable changes to **VideoTubeEditor** are documented here.
 Version SSOT: `pyproject.toml` `[project].version` and `src/VideoTubeEditor/__init__.py` `__version__`.
 
+## [1.0.2] - 2026-10-12
+
+### Added
+
+- Join puts **Swap** between Video 1 and Video 2. Swap exchanges the two sources, including a side with no file, and it is disabled while an encode runs. The default output name follows the new order when that name has not been edited.
+- When an edit finishes and the output file exists, has a join suffix, and its size is greater than zero, that file becomes Video 1. The visible group stays put. If that file is already Video 2, the sources exchange. A failed edit, a missing file, or a zero-byte file does not change the join sources. The same path still cannot sit on both sides.
+
+### Changed
+
+- Product version is **1.0.2**. `pyproject.toml`, `__version__`, the README Version badge, this section, and the current SECURITY row use that string.
+- The four pictures in `screenshots/` are captures of this window. The title is VideoTubeEditor 1.0.2. The header on those captures is Traditional Chinese. Run has not been pressed, so the process bar reads 處理 0%. The join picture shows 交換 between the two source cards, a thumbnail strip under each source, and the clocks `00:00.00` / `00:18.04` and `00:00.00` / `00:12.04`.
+
+### Fixed
+
+- At the default window size, Join shows both source thumbnail strips and both clocks. A portrait file does not stretch a join source picture past the 180 pixel request.
+
 ## [1.0.1] - 2026-10-12
 
 ### Changed

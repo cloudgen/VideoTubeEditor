@@ -357,7 +357,7 @@ class TestMissingCurses(unittest.TestCase):
         self.assertIn("Hello from VideoTubeEditor", proc.stdout)
         from VideoTubeEditor import __version__
 
-        self.assertEqual(__version__, "1.0.1")
+        self.assertEqual(__version__, "1.0.2")
         self.assertIn("VideoTubeEditor {0}".format(__version__), proc.stdout)
         self.assertIn("MENU_ACTION missing", proc.stdout)
         self.assertIn(

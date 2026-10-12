@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-python-tui.md
-**Status**: Active (Version 1.2.5)
+**Status**: Active (Version 1.2.7)
 **Area**: python
 **Key**: `requirement-python-tui`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -77,12 +77,13 @@ While the front board, the self-management board, the system-log board, or the l
 
 14. **Control-C is not row 9.** This file does not own Control-C. Row **9** Exit leaves with no confirm question and returns 0. A clock redraw **MUST NOT** leave the program.
 
-Picture of this board. The box in the picture is 16 columns wide so the corners stay visible. On a real screen those 16 columns become the full width, and the menu stays above the frame. The block in the picture is the focused caret. `14:05:09` is a sample local time. `1.0.5` is the current package version and moves with `__version__`.
+Picture of this board. The box in the picture is 16 columns wide so the corners stay visible. On a real screen those 16 columns become the full width, and the menu stays above the frame. The block in the picture is the focused caret. `14:05:09` is a sample local time. `1.0.2` is the current package version and moves with `__version__`.
 
 ```text
 Path: /tmp/clips                                              14:05:09
 
 1. join           : pick two videos in this folder and concatenate
+2. edit           : cut, speed, and optional boomerang or repeat
 3. system-log     : view, clear, and the log folder
 4. language       : display language for this menu
 8. self-management: version, about, and pip lifecycle
@@ -90,7 +91,7 @@ Path: /tmp/clips                                              14:05:09
 ╭──────────────╮
 │ > █          │
 ╰──────────────╯
-  VideoJoin 1.0.5  │  main menu  │  Up/Down  •  Enter
+  VideoTubeEditor 1.0.2  │  main menu  │  Up/Down  •  Enter
 ```
 
 The same first row when `requirement-python-cli-language` has selected Traditional Chinese:
@@ -139,7 +140,7 @@ key = screen.getch()
 | **Path label** | English `Path` by default. Traditional Chinese `路徑` when the language requirement selects `zh-Hant`. The path value is not translated. This file does not detect the language |
 | **Worked Traditional Chinese top line** | `路徑: /tmp/clips` then a gap, then `14:05:09` flush right |
 | **Clock wait** | One second on those four boards. No thread. Questions and file lists do not use this wait. A no-key is not Esc and is not Exit |
-| **Status line** | `  VideoJoin <version>  │  main menu  │  Up/Down  •  Enter` |
+| **Status line** | `  VideoTubeEditor <version>  │  main menu  │  Up/Down  •  Enter` |
 | **External menu package** | Not imported and not declared |
 | **No terminal, empty argv** | Help text, return 0 |
 | **No terminal, join** | Non-zero. Tell the operator to use a terminal. No file-operand flags |
@@ -283,6 +284,7 @@ On Termux, Git Bash, Windows cmd, or the same class, the person runs `video-join
 | 2026-10-10 | Active 1.2.4 | The load-time `import curses` must use `try` / `except ImportError` so a missing `_curses` does not raise |
 | 2026-10-12 | Active 1.2.5 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
 | 2026-10-12 | Active 1.2.6 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
+| 2026-10-12 | Active 1.2.7 | Release string is **1.0.2**. |
 
 ---
 

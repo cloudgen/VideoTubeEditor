@@ -21,9 +21,10 @@ class Gui:
     A project-root line sits under the header. join and edit are tabs on the
     left of the group. Each group splits left and right. Edit puts Input
     Video, Edit Controls, and Looping Options on the left, and Output &
-    Result on the right. Join puts the two sources on the left and the same
-    output column on the right. A process bar sits on the bottom of the
-    window. Typed verbs and the text menu stay on Cli and Tui.
+    Result on the right. Join puts the two sources on the left, with Swap
+    between them, and the same output column on the right. A process bar
+    sits on the bottom of the window. Typed verbs and the text menu stay
+    on Cli and Tui.
     """
 
     FRONT = (
@@ -347,7 +348,7 @@ class Gui:
         gtk = self._gtk
         title = "{0} {1}".format(self.app.app_name, self.app.version)
         self._window = gtk.Window(title=title)
-        self._window.set_default_size(1360, 900)
+        self._window.set_default_size(1360, 1120)
         self._window.add_css_class("app-canvas")
         self._window.connect("close-request", self._on_close)
         header = gtk.HeaderBar()
@@ -956,12 +957,12 @@ class Gui:
         group, left, right = self._group()
         self.join_entries = []
         sources = gtk.Box(orientation=gtk.Orientation.VERTICAL, spacing=12)
-        sources.set_homogeneous(True)
-        sources.set_vexpand(True)
+        sources.set_homogeneous(False)
+        sources.set_vexpand(False)
         for index, title in ((0, "win_video_1"), (1, "win_video_2")):
             card, column = self._card(title)
-            card.set_vexpand(True)
-            column.set_vexpand(True)
+            card.set_vexpand(False)
+            column.set_vexpand(False)
             row = gtk.Box(orientation=gtk.Orientation.HORIZONTAL, spacing=6)
             entry = gtk.Entry()
             entry.set_editable(False)
@@ -971,9 +972,14 @@ class Gui:
             button.connect("clicked", self._pick_join, index)
             row.append(button)
             column.append(row)
-            self._mount_player(column, self.JOIN_PLAYER_KEYS[index])
+            self._mount_player(column, self.JOIN_PLAYER_KEYS[index], expand=False)
             sources.append(card)
             self.join_entries.append(entry)
+            if index == 0:
+                self.join_swap = self._btn("win_swap", "object-flip-vertical-symbolic")
+                self.join_swap.set_halign(gtk.Align.CENTER)
+                self.join_swap.connect("clicked", self._swap_join_sources)
+                sources.append(self.join_swap)
         left.append(sources)
         self._fill_output_column(right, edit=False)
         self._sync_join()
@@ -1186,18 +1192,18 @@ class Gui:
         self._log_status("thread start name={0}".format(name))
         thread.start()
 
-    def _mount_player(self, parent, key: str, heading: str = "") -> None:
+    def _mount_player(self, parent, key: str, heading: str = "", expand: bool = True) -> None:
         """Elapsed time bar plus Play and Stop. The picture is attached later."""
         gtk = self._gtk
         block = gtk.Box(orientation=gtk.Orientation.VERTICAL, spacing=4)
         block.add_css_class("app-panel")
         block.set_hexpand(True)
-        block.set_vexpand(True)
+        block.set_vexpand(expand)
         if heading:
             block.append(self._cap(heading, xalign=0))
         holder = gtk.Box(orientation=gtk.Orientation.VERTICAL)
         holder.add_css_class("app-panel")
-        holder.set_vexpand(True)
+        holder.set_vexpand(expand)
         note = gtk.Label(label="")
         note.set_wrap(True)
         holder.append(note)
@@ -1275,9 +1281,14 @@ class Gui:
             video.set_media_stream(media)
             video.set_autoplay(False)
             video.set_hexpand(True)
-            video.set_vexpand(True)
             video.set_size_request(420, self.PLAYER_PICTURE_HEIGHT)
-            slot["holder"].append(video)
+            if self._join_source_key(key):
+                # A portrait file must not raise this picture past the request.
+                video.set_vexpand(False)
+                slot["holder"].append(self._clamp_picture(video, self.PLAYER_PICTURE_HEIGHT))
+            else:
+                video.set_vexpand(True)
+                slot["holder"].append(video)
             self._clear_note(slot["note"])
             slot["media"] = media
         except Exception as exc:
@@ -1540,23 +1551,98 @@ class Gui:
         self._load_slot(self.EDIT_GENERATED_KEY, "")
         self._sync_edit()
 
+    def _join_source_key(self, key: str) -> bool:
+        """True for Video 1 and Video 2. The generated player is not a source."""
+        return key in self.JOIN_PLAYER_KEYS[:2]
+
+    def _clamp_picture(self, video, height: int):
+        """Hold a player picture at the requested height. The file's pixels do not raise it."""
+        gtk = self._gtk
+        clip = gtk.ScrolledWindow()
+        clip.set_policy(gtk.PolicyType.NEVER, gtk.PolicyType.NEVER)
+        clip.set_propagate_natural_height(False)
+        clip.set_propagate_natural_width(False)
+        clip.set_min_content_height(height)
+        clip.set_max_content_height(height)
+        clip.set_child(video)
+        return clip
+
+    def _join_suffixes(self):
+        """Suffixes Join accepts. A missing collaborator keeps the five video suffixes."""
+        join = getattr(self.app, "join", None) if self.app is not None else None
+        allowed = getattr(join, "video_suffixes", None)
+        if not allowed:
+            return (".mp4", ".mov", ".mkv", ".avi", ".m4v")
+        return allowed
+
+    def _same_path(self, left: str, right: str) -> bool:
+        """True when both paths name one file. An empty side is never the same."""
+        if not left or not right:
+            return False
+        try:
+            return Path(left).resolve() == Path(right).resolve()
+        except OSError:
+            return os.path.abspath(left) == os.path.abspath(right)
+
+    def _join_file_ready(self, path: str) -> bool:
+        """A join source must be a real file of an accepted suffix with size greater than zero."""
+        text = str(path or "").strip()
+        if not text or not os.path.isfile(text):
+            return False
+        if Path(text).suffix.lower() not in self._join_suffixes():
+            return False
+        try:
+            return os.path.getsize(text) > 0
+        except OSError:
+            return False
+
+    def _clear_join_source(self, index: int) -> None:
+        self._join_paths[index] = ""
+        self.join_entries[index].set_text("")
+        self._load_slot(self.JOIN_PLAYER_KEYS[index], "")
+
+    def _swap_join_sources(self, _button=None) -> None:
+        """Exchange Video 1 and Video 2, including an empty side."""
+        if self._busy:
+            return
+        first = self._join_paths[0]
+        second = self._join_paths[1]
+        # Clear first so the same-path guard does not fire while the files cross.
+        self._join_paths[0] = ""
+        self._join_paths[1] = ""
+        if second:
+            self._set_join_file(0, second)
+        else:
+            self._clear_join_source(0)
+        if first:
+            self._set_join_file(1, first)
+        else:
+            self._clear_join_source(1)
+        self._sync_join()
+
+    def _take_finished_edit(self, path: str) -> None:
+        """A finished non-empty edit file becomes Video 1. The visible group stays put."""
+        if self._busy or not self._join_file_ready(path):
+            return
+        if self._same_path(path, self._join_paths[1]):
+            self._swap_join_sources()
+            return
+        self._set_join_file(0, path)
+
     def _set_join_file(self, index: int, path: str) -> None:
         suffix = Path(path).suffix.lower()
-        if suffix not in self.app.join.video_suffixes:
+        if suffix not in self._join_suffixes():
             self._say(self.join_result, "win_not_join")
             return
         other = self._join_paths[1 - index]
-        try:
-            same = bool(other) and Path(path).resolve() == Path(other).resolve()
-        except OSError:
-            same = os.path.abspath(path) == os.path.abspath(other)
-        if same:
+        if self._same_path(path, other):
             self._say(self.join_result, "win_two_files")
             return
         self._join_paths[index] = path
         self.join_entries[index].set_text(path)
-        if self._join_paths[0] and self._join_paths[1] and not self._join_name_edited:
-            named = self.app.join.resolve_output_name(
+        join = getattr(self.app, "join", None) if self.app is not None else None
+        if self._join_paths[0] and self._join_paths[1] and not self._join_name_edited and join is not None:
+            named = join.resolve_output_name(
                 self._join_paths[0], self._join_paths[1], ""
             )
             self._filling_name = True
@@ -1695,6 +1781,9 @@ class Gui:
     def _sync_join(self, *_args) -> None:
         both = bool(self._join_paths[0] and self._join_paths[1])
         self.join_run.set_sensitive(both and not self._busy)
+        swap = getattr(self, "join_swap", None)
+        if swap is not None:
+            swap.set_sensitive(not self._busy)
         if both:
             self._say(self.join_output, "win_write_to", self._join_destination())
         else:
@@ -1758,6 +1847,7 @@ class Gui:
         self._paint_process()
         self._sync_edit()
         self._sync_join()
+        self._take_finished_edit(ready)
         return False
 
     def _run_join(self, _button) -> None:
@@ -1767,11 +1857,7 @@ class Gui:
         second = self._join_paths[1]
         if not first or not second:
             return
-        try:
-            same = Path(first).resolve() == Path(second).resolve()
-        except OSError:
-            same = os.path.abspath(first) == os.path.abspath(second)
-        if same:
+        if self._same_path(first, second):
             self._say(self.join_result, "win_two_files")
             return
         destination = self._join_destination()
@@ -1828,6 +1914,8 @@ class Gui:
         self._paint_process()
         self._sync_edit()
         self._sync_join()
+        if page != "join" and media_path:
+            self._take_finished_edit(media_path)
         return False
 
     def _selected_log(self):

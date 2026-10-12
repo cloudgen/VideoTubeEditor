@@ -1,5 +1,6 @@
 # Window routing and the elapsed-time clock. The text menu is not opened here.
 import os
+import shutil
 import tempfile
 import unittest
 from unittest.mock import patch
@@ -406,10 +407,16 @@ class TestPlayerWidgets(unittest.TestCase):
             def get_duration_cv2(self, _path):
                 return lengths["seconds"]
 
+        from VideoTubeEditor.join import Join
+
         class _App:
             app_name = "VideoTubeEditor"
             version = "1.1.0"
             media = _Media()
+            join = Join(
+                video_suffixes=(".mp4", ".mov", ".mkv", ".avi", ".m4v"),
+                output_suffixes=(".mp4", ".mkv", ".mov"),
+            )
 
         gui.app = _App()
         from VideoTubeEditor.menu_language import MenuLanguage
@@ -445,8 +452,54 @@ class TestPlayerWidgets(unittest.TestCase):
         self.assertEqual(buttons.count("Stop"), 5)
         self.assertEqual(captions.count("Generated"), 2)
         self.assertIn("Start", buttons)
+        self.assertIn("Swap", buttons)
         self.assertIn("Video 1", captions)
         self.assertIn("Video 2", captions)
+        card_one = gui.join_entries[0].get_parent().get_parent().get_parent()
+        card_two = gui.join_entries[1].get_parent().get_parent().get_parent()
+        source_box = card_one.get_parent()
+        self.assertFalse(source_box.get_homogeneous())
+        self.assertIs(source_box.get_first_child(), card_one)
+        self.assertIs(card_one.get_next_sibling(), gui.join_swap)
+        self.assertIs(gui.join_swap.get_next_sibling(), card_two)
+        self.assertIsNone(card_two.get_next_sibling())
+        self.assertEqual(gui.join_swap.get_halign(), gtk.Align.CENTER)
+        self.assertEqual(gui.join_swap.get_label(), "Swap")
+        self.assertFalse(card_one.get_vexpand())
+        self.assertFalse(card_two.get_vexpand())
+        self.assertFalse(source_box.get_vexpand())
+        gui._show("join")
+        context = glib.MainContext.default()
+        for _ in range(8):
+            context.iteration(False)
+        for key in ("join-1", "join-2"):
+            for widget in (
+                gui._film[key]["area"],
+                gui._slots[key]["total"],
+                gui._slots[key]["play"],
+            ):
+                placed, rect = widget.compute_bounds(gui._window)
+                self.assertTrue(placed)
+                self.assertGreater(rect.get_height(), 0)
+                self.assertLessEqual(
+                    rect.get_y() + rect.get_height(),
+                    gui._window.get_height(),
+                )
+        gui._show("edit")
+        for key in Gui.JOIN_PLAYER_KEYS[:2]:
+            clip = gui._slots[key]["holder"].get_last_child()
+            self.assertEqual(clip.__class__.__name__, "ScrolledWindow")
+            self.assertEqual(clip.get_min_content_height(), Gui.PLAYER_PICTURE_HEIGHT)
+            self.assertEqual(clip.get_max_content_height(), Gui.PLAYER_PICTURE_HEIGHT)
+            self.assertFalse(clip.get_propagate_natural_height())
+            video = clip.get_child()
+            if video.__class__.__name__ == "Viewport":
+                video = video.get_child()
+            self.assertEqual(video.__class__.__name__, "Video")
+            self.assertFalse(video.get_vexpand())
+        generated = gui._slots["join-out"]["holder"].get_last_child()
+        self.assertEqual(generated.__class__.__name__, "Video")
+        self.assertTrue(generated.get_vexpand())
         self.assertEqual(gui.elapsed.get_text(), "00:00.00")
         self.assertTrue(gui._window.has_css_class("app-canvas"))
         self.assertTrue(gui._root.has_css_class("app-canvas"))
@@ -565,6 +618,86 @@ class TestPlayerWidgets(unittest.TestCase):
             self.assertEqual(gui._slots["edit-out"]["path"], "")
             self.assertEqual(gui.process.get_text(), "Process 0%")
             self.assertFalse(gui._slots["edit-out"]["play"].get_sensitive())
+            second = os.path.join(os.path.dirname(sample), "video-2.mp4")
+            self.assertTrue(os.path.isfile(second))
+            work = tempfile.mkdtemp(prefix="vtjoin_", dir="/tmp")
+            finished = os.path.join(work, "finished.mp4")
+            shutil.copyfile(sample, finished)
+            empty = os.path.join(work, "empty.mp4")
+            with open(empty, "wb"):
+                pass
+            note = os.path.join(work, "note.txt")
+            with open(note, "w", encoding="utf-8") as handle:
+                handle.write("x")
+            gui._clear_join_source(0)
+            gui._clear_join_source(1)
+            gui._join_name_edited = False
+            gui._filling_name = True
+            gui.join_name.set_text("")
+            gui._filling_name = False
+            gui._show("edit")
+            gui._set_join_file(0, sample)
+            gui._set_join_file(1, second)
+            self.assertEqual(gui.join_name.get_text(), "video-1 + video-2.mp4")
+            gui._swap_join_sources()
+            self.assertTrue(gui._join_paths[0].endswith("video-2.mp4"))
+            self.assertTrue(gui._join_paths[1].endswith("video-1.mp4"))
+            self.assertEqual(gui.join_name.get_text(), "video-2 + video-1.mp4")
+            self.assertEqual(gui._stack.get_visible_child_name(), "edit")
+            gui.join_name.set_text("kept.mp4")
+            self.assertTrue(gui._join_name_edited)
+            gui._swap_join_sources()
+            self.assertEqual(gui.join_name.get_text(), "kept.mp4")
+            self.assertTrue(gui._join_paths[0].endswith("video-1.mp4"))
+            self.assertTrue(gui._join_paths[1].endswith("video-2.mp4"))
+            gui._clear_join_source(1)
+            gui._swap_join_sources()
+            self.assertEqual(gui._join_paths[0], "")
+            self.assertTrue(gui._join_paths[1].endswith("video-1.mp4"))
+            gui._set_join_file(0, gui._join_paths[1])
+            self.assertEqual(gui._join_paths[0], "")
+            self.assertEqual(gui.join_result.get_text(), "Choose two different files.")
+            held = list(gui._join_paths)
+            gui._busy = True
+            gui._sync_join()
+            self.assertFalse(gui.join_swap.get_sensitive())
+            gui._swap_join_sources()
+            self.assertEqual(gui._join_paths, held)
+            gui._busy = False
+            gui._sync_join()
+            self.assertTrue(gui.join_swap.get_sensitive())
+            gui._clear_join_source(0)
+            gui._clear_join_source(1)
+            gui._join_name_edited = False
+            gui._set_join_file(0, sample)
+            gui._set_join_file(1, second)
+            gui._show("edit")
+            gui._edit_done(0, finished, finished)
+            self.assertEqual(gui._stack.get_visible_child_name(), "edit")
+            self.assertEqual(gui._join_paths[0], finished)
+            self.assertTrue(gui._join_paths[1].endswith("video-2.mp4"))
+            self.assertEqual(gui.join_name.get_text(), "finished + video-2.mp4")
+            gui._take_finished_edit(second)
+            self.assertTrue(gui._join_paths[0].endswith("video-2.mp4"))
+            self.assertEqual(gui._join_paths[1], finished)
+            gui._take_finished_edit(gui._join_paths[0])
+            self.assertTrue(gui._join_paths[0].endswith("video-2.mp4"))
+            self.assertEqual(gui._join_paths[1], finished)
+            left, right = gui._join_paths[0], gui._join_paths[1]
+            gui._take_finished_edit(empty)
+            gui._take_finished_edit(os.path.join(work, "missing.mp4"))
+            gui._take_finished_edit(note)
+            gui._edit_done(1, empty, "")
+            gui._job_done("edit", "Edit failed.", "")
+            self.assertEqual(gui._join_paths, [left, right])
+            gui._job_done("edit", "SUCCESS", finished)
+            self.assertEqual(gui._join_paths[0], finished)
+            self.assertTrue(gui._join_paths[1].endswith("video-2.mp4"))
+            gui._join_done(True, ["SUCCESS"], sample)
+            self.assertEqual(gui._join_paths[0], finished)
+            self.assertTrue(gui._join_paths[1].endswith("video-2.mp4"))
+            self.assertEqual(gui._stack.get_visible_child_name(), "edit")
+            gui.wait_filmstrips(20)
         gui._window.destroy()
 
     def test_window_labels_follow_menu_language(self):
@@ -597,6 +730,7 @@ class TestPlayerWidgets(unittest.TestCase):
         home = tempfile.mkdtemp(prefix="vtwin_", dir="/tmp")
         gui.language = MenuLanguage(home=home)
         gui._build()
+        self.assertEqual(gui.join_swap.get_label(), "Swap")
         self.assertEqual(gui.tail_none_label.get_text(), "None")
         self.assertEqual(gui.tail_boomerang_label.get_text(), "Boomerang")
         self.assertEqual(gui.tail_repeat_label.get_text(), "Repeat")
@@ -605,6 +739,7 @@ class TestPlayerWidgets(unittest.TestCase):
         self.assertEqual(gui.elapsed.get_text(), "00:00.00")
         gui._save_language(None, "zh-Hans")
         self.assertEqual(gui.language.code(), "zh-Hans")
+        self.assertEqual(gui.join_swap.get_label(), "交换")
         self.assertEqual(gui.tail_none_label.get_text(), "无")
         self.assertEqual(gui.tail_boomerang_label.get_text(), "回旋")
         self.assertEqual(gui.tail_repeat_label.get_text(), "重复")

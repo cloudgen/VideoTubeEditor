@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-python-coding-style.md
-**Status**: Active (Version 1.1.2)
+**Status**: Active (Version 1.1.4)
 **Area**: python
 **Key**: `requirement-python-coding-style`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -89,7 +89,7 @@ Log the temp write, the publish, and the discard of an unfinished temp before th
 | **Gate checklist (cite ID)** | `CL-PYTHON-SHUTIL-MOVE-PUBLISH` — run when auditing promote and staging publish paths |
 | **Architecture** | Running tree is procedural. Allowed end state is the class map. StateLogic + `Attr` stays unordered |
 | **Logger** | Package import does not construct ChronicleLogger |
-| **Version** | `1.0.5` |
+| **Version** | `1.0.2` |
 | **User docs** | Root `README.md` Features must not claim a Cython-required runtime or a fixed `filelist.txt`-only strategy |
 
 ### 2.6 Why This Requirement Exists (CIAO)
@@ -172,6 +172,7 @@ On Termux, Git Bash, Windows cmd, or the same class, temps and the published fil
 | 2026-10-04 | Active 1.1.1 | Current version string is **1.0.5** |
 | 2026-10-12 | Active 1.1.2 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
 | 2026-10-12 | Active 1.1.3 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
+| 2026-10-12 | Active 1.1.4 | Release string is **1.0.2**. |
 
 ---
 

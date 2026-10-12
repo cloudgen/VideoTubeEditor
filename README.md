@@ -1,6 +1,6 @@
 # VideoTubeEditor - Join two local videos, and cut, speed, or boomerang an MP4
 
-![Version](https://img.shields.io/badge/Version-1.0.1-blue?style=flat-square)
+![Version](https://img.shields.io/badge/Version-1.0.2-blue?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 [![CIAO](https://img.shields.io/badge/Philosophy-CIAO%20(Caution%20%E2%80%A2%20Intentional%20%E2%80%A2%20Anti--fragile%20%E2%80%A2%20Over--engineered)-purple.svg)](https://github.com/cloudgen/ciao)
 [![Stars](https://img.shields.io/github/stars/cloudgen/VideoTubeEditor?style=flat-square)](https://github.com/cloudgen/VideoTubeEditor)
@@ -9,7 +9,7 @@
 
 VideoTubeEditor keeps the VideoJoin architecture and adds the VideoSpeed edit steps. It concatenates **two** video files from the current directory using **FFmpeg** (stream copy first, then a fail-closed re-encode). It also cuts an MP4, changes its length, and can append a boomerang or a repeat. Intermediate files are published with **`shutil.move`**.
 
-On a terminal with an X11 display (`DISPLAY` set, including `ssh -X`), starting it with no arguments opens a window. **Edit** and **Join** are two groups: one is on screen while the other is hidden. The labels join and edit sit on that group, sharing its left edge and width. The row for the group on screen is highlighted, and the highlight meets the top of the group. Each group splits left and right. The left side is the source or sources and the settings. The right side is the output. Edit plays an MP4, with the elapsed time on the left of the time bar as `00:00.00`, and with Start, Pause, Stop, jump, Mark start, and Mark end. Percent stays 20–200. The tail choices are None, Boomerang, and Repeat, and None starts selected. The window’s top menu shows join, edit, system-log, language, self-management, and Exit. Button names and the other window labels follow the language chosen there. The clock `00:00.00`, the folder path, and the About page stay in their current form. The edit right side also plays the generated file, with that elapsed time bar and with Play and Stop. When Run starts, that generated player is cleared and its controls are disabled. When the run finishes and the file is on disk, the player loads the file and the controls are enabled. Join has two **Select file** buttons, with Video 1 above Video 2. Each source has a player under its path, and the generated file has a third player on the right. Those three players show the elapsed time on the time bar and have Play and Stop. `video-tube-editor tui` opens the text menu and leaves that menu as it is. With no display, a bare start still opens the text menu. **join** is row 1. **edit** is row 2. Neither the window nor the menu starts a job by itself, and neither calls pip.
+On a terminal with an X11 display (`DISPLAY` set, including `ssh -X`), starting it with no arguments opens a window. **Edit** and **Join** are two groups: one is on screen while the other is hidden. The labels join and edit sit on that group, sharing its left edge and width. The row for the group on screen is highlighted, and the highlight meets the top of the group. Each group splits left and right. The left side is the source or sources and the settings. The right side is the output. Edit plays an MP4, with the elapsed time on the left of the time bar as `00:00.00`, and with Start, Pause, Stop, jump, Mark start, and Mark end. Percent stays 20–200. The tail choices are None, Boomerang, and Repeat, and None starts selected. The window’s top menu shows join, edit, system-log, language, self-management, and Exit. Button names and the other window labels follow the language chosen there. The clock `00:00.00`, the folder path, and the About page stay in their current form. The edit right side also plays the generated file, with that elapsed time bar and with Play and Stop. When Run starts, that generated player is cleared and its controls are disabled. When the run finishes and the file is on disk, the player loads the file and the controls are enabled. Join has two **Select file** buttons, with Video 1 above Video 2 and **Swap** between them. When an edit finishes and the output file is not empty, that file becomes Video 1. Each source has a player under its path, and the generated file has a third player on the right. Those three players show the elapsed time on the time bar and have Play and Stop. `video-tube-editor tui` opens the text menu and leaves that menu as it is. With no display, a bare start still opens the text menu. **join** is row 1. **edit** is row 2. Neither the window nor the menu starts a job by itself, and neither calls pip.
 
 ## Features
 
@@ -56,7 +56,7 @@ On a terminal with an X11 display (`DISPLAY` set, including `ssh -X`), starting 
 pip install VideoTubeEditor
 ```
 
-This installs the console entries **`video-tube-editor`**, **`video-join`**, and **`video-speed`**, and the package **`VideoTubeEditor`**. Packaging name SSOT is `pyproject.toml` `[project].name` = `VideoTubeEditor`. This tree is **1.0.1**. The source home is `https://github.com/cloudgen/VideoTubeEditor`. The PyPI badge above shows the live index.
+This installs the console entries **`video-tube-editor`**, **`video-join`**, and **`video-speed`**, and the package **`VideoTubeEditor`**. Packaging name SSOT is `pyproject.toml` `[project].name` = `VideoTubeEditor`. This tree is **1.0.2**. The source home is `https://github.com/cloudgen/VideoTubeEditor`. The PyPI badge above shows the live index.
 
 ### Local install (checkout)
 
@@ -94,7 +94,7 @@ Path: /tmp/clips                                                       12:06:45
 ╭─────────────────────────────────────────────────────────────────────────────╮
 │ >                                                                           │
 ╰─────────────────────────────────────────────────────────────────────────────╯
-  VideoTubeEditor 1.0.1  │  main menu  │  Up/Down  •  Enter
+  VideoTubeEditor 1.0.2  │  main menu  │  Up/Down  •  Enter
 ```
 
 **system-log** (3):
@@ -113,7 +113,7 @@ Path: /tmp/clips                                                       12:06:45
 ╭─────────────────────────────────────────────────────────────────────────────╮
 │ >                                                                           │
 ╰─────────────────────────────────────────────────────────────────────────────╯
-  VideoTubeEditor 1.0.1  │  system-log  │  Up/Down  •  Enter
+  VideoTubeEditor 1.0.2  │  system-log  │  Up/Down  •  Enter
 ```
 
 **language** (4). The short on each language row is that language’s own name. Numbers 40 and 54–59 are not printed. `0` goes back and does not save.
@@ -139,7 +139,7 @@ Path: /tmp/clips                                                       12:06:46
 ╭─────────────────────────────────────────────────────────────────────────────╮
 │ >                                                                           │
 ╰─────────────────────────────────────────────────────────────────────────────╯
-  VideoTubeEditor 1.0.1  │  language  │  Up/Down  •  Enter
+  VideoTubeEditor 1.0.2  │  language  │  Up/Down  •  Enter
 ```
 
 **self-management** (8):
@@ -158,7 +158,7 @@ Path: /tmp/clips                                                       14:05:09
 ╭─────────────────────────────────────────────────────────────────────────────╮
 │ >                                                                           │
 ╰─────────────────────────────────────────────────────────────────────────────╯
-  VideoTubeEditor 1.0.1  │  self-management  │  Up/Down  •  Enter
+  VideoTubeEditor 1.0.2  │  self-management  │  Up/Down  •  Enter
 ```
 
 Choose a number, or type the command name in the box. The block caret appears in that box while it is focused.
@@ -206,7 +206,7 @@ video-tube-editor self-install
 video-tube-editor self-uninstall --force
 ```
 
-`version` prints `VideoTubeEditor 1.0.1` and does not call pip. `about` shows one English page: the product identity, a host check of this computer, and a star box. It does not install FFmpeg and it does not call pip. `hello` prints a one-line greeting and does not draw the menu. `list-videos` lists eligible names and does not join. `help` prints usage.
+`version` prints `VideoTubeEditor 1.0.2` and does not call pip. `about` shows one English page: the product identity, a host check of this computer, and a star box. It does not install FFmpeg and it does not call pip. `hello` prints a one-line greeting and does not draw the menu. `list-videos` lists eligible names and does not join. `help` prints usage.
 
 `version-check` runs `python -m pip index versions VideoTubeEditor`. `self-update` runs `python -m pip install --upgrade VideoTubeEditor`. `self-install` runs `python -m pip install VideoTubeEditor`. `self-uninstall` runs `python -m pip uninstall -y VideoTubeEditor` and needs `--force` on the command line. Those pip verbs do not use sudo. Empty arguments do not install or update.
 
@@ -221,19 +221,19 @@ from VideoTubeEditor import main
 
 ## Screenshots
 
-Each heading is the file name. The paragraph is what that picture shows. These four pictures are the X11 window for package **1.0.1**. A bare `video-tube-editor` on a terminal with `DISPLAY` set opens this window. The header follows the saved menu language. On these captures that language is Traditional Chinese, so the header reads 系統日誌, 語言, 自我管理, and 離開. English labels for those buttons are system-log, language, self-management, and Exit. The title is VideoTubeEditor 1.0.1. The project-root line names the current directory and does not carry a clock. Each player clock reads `00:00.00`. A loaded source player shows a thumbnail strip under the picture. The generated player stays empty, and its Play and Stop stay disabled, until a finished file is on disk. Play and Stop do not start or stop FFmpeg. Run has not been pressed, so the bottom bar reads 處理 0%.
+Each heading is the file name. The paragraph is what that picture shows. These four pictures are the X11 window for package **1.0.2**. A bare `video-tube-editor` on a terminal with `DISPLAY` set opens this window. The header follows the saved menu language. On these captures that language is Traditional Chinese, so the header reads 系統日誌, 語言, 自我管理, and 離開. English labels for those buttons are system-log, language, self-management, and Exit. The title is VideoTubeEditor 1.0.2. The project-root line names the current directory and does not carry a clock. Each player clock reads `00:00.00`. A loaded source player shows a thumbnail strip under the picture. The generated player stays empty, and its Play and Stop stay disabled, until a finished file is on disk. Play and Stop do not start or stop FFmpeg. Run has not been pressed, so the bottom bar reads 處理 0%.
 
 ### `gui-edit.png`
 
-Edit is the group on screen. The window title is VideoTubeEditor 1.0.1. The edit tab is highlighted and shares the group's left edge. A framed line under the header shows 專案根目錄 (Project Root) and the current directory. 輸入影片 (Input Video) holds one MP4, 選擇檔案 (Select file), and a player at `00:00.00` of `00:18.04`. A thumbnail strip sits under that picture. 剪輯控制 (Edit Controls) has 開始 (Start), 暫停 (Pause), 停止 (Stop), a jump field showing `00:00.00`, and 前往 (Go To). 起點 (Start) is `00:00.00` with 標記起點 (Mark start). 終點 (End) is `00:18.04` with 標記終點 (Mark end). 百分比 (Percent) is 100. 循環選項 (Looping Options) has 無 (None) on, and 迴旋 (Boomerang) and 重複 (Repeat) off. The output name is `video-1_cut0.0-18.0s_100pct.mp4`. 執行 (Run) has not been pressed. 輸出與結果 (Output & Result) shows that name. 已產生 (Generated) is empty. 結果影片 (Resulting Video) is empty, shows `00:00.00` of `00:00.00`, and its 播放 (Play) and 停止 (Stop) are disabled. The bottom bar reads 處理 0% (Process 0%).
+Edit is the group on screen. The window title is VideoTubeEditor 1.0.2. The edit tab is highlighted and shares the group's left edge. A framed line under the header shows 專案根目錄 (Project Root) and the current directory. 輸入影片 (Input Video) holds one MP4, 選擇檔案 (Select file), and a player at `00:00.00` of `00:18.04`. A thumbnail strip sits under that picture. 剪輯控制 (Edit Controls) has 開始 (Start), 暫停 (Pause), 停止 (Stop), a jump field showing `00:00.00`, and 前往 (Go To). 起點 (Start) is `00:00.00` with 標記起點 (Mark start). 終點 (End) is `00:18.04` with 標記終點 (Mark end). 百分比 (Percent) is 100. 循環選項 (Looping Options) has 無 (None) on, and 迴旋 (Boomerang) and 重複 (Repeat) off. The output name is `video-1_cut0.0-18.0s_100pct.mp4`. 執行 (Run) has not been pressed. 輸出與結果 (Output & Result) shows that name. 已產生 (Generated) is empty. 結果影片 (Resulting Video) is empty, shows `00:00.00` of `00:00.00`, and its 播放 (Play) and 停止 (Stop) are disabled. The bottom bar reads 處理 0% (Process 0%).
 
 ![Edit group, Traditional Chinese labels, generated player empty](https://raw.githubusercontent.com/cloudgen/VideoTubeEditor/main/screenshots/gui-edit.png)
 
 ### `gui-join.png`
 
-Join is the group on screen. The join tab is highlighted and shares the group's left edge. The same header, project-root line, and 處理 0% bar are on screen. 影片 1 (Video 1) and 影片 2 (Video 2) are loaded. The first player shows `00:00.00` of `00:18.04`. The second shows `00:00.00` of `00:12.04`. A thumbnail strip sits under each source picture. Each source has 播放 (Play) and 停止 (Stop). 輸出名稱 (Output name) is `video-1 + video-2.mp4`. The write line names the current directory and that file. 執行 (Run) has not been pressed. 已產生 (Generated) is empty. 結果影片 (Resulting Video) is empty, shows `00:00.00` of `00:00.00`, and its Play and Stop are disabled.
+Join is the group on screen. The join tab is highlighted and shares the group's left edge. The same header, project-root line, and 處理 0% bar are on screen. 影片 1 (Video 1) and 影片 2 (Video 2) are loaded. 交換 (Swap) sits between the two source cards. The first player shows `00:00.00` of `00:18.04`. The second shows `00:00.00` of `00:12.04`. A thumbnail strip sits under each source picture. Each source has 播放 (Play) and 停止 (Stop). 輸出名稱 (Output name) is `video-1 + video-2.mp4`. The write line names the current directory and that file. 執行 (Run) has not been pressed. 已產生 (Generated) is empty. 結果影片 (Resulting Video) is empty, shows `00:00.00` of `00:00.00`, and its Play and Stop are disabled.
 
-![Join group, two source players, generated player empty](https://raw.githubusercontent.com/cloudgen/VideoTubeEditor/main/screenshots/gui-join.png)
+![Join group, Swap between the two sources, generated player empty](https://raw.githubusercontent.com/cloudgen/VideoTubeEditor/main/screenshots/gui-join.png)
 
 ### `gui-language.png`
 
@@ -258,7 +258,7 @@ video-tube-editor
 video-tube-editor version
 ```
 
-`version` prints `VideoTubeEditor 1.0.1` and does not call pip. A run that is not the text menu can also print ChronicleLogger status lines above that. The text menu keeps those lines off the screen.
+`version` prints `VideoTubeEditor 1.0.2` and does not call pip. A run that is not the text menu can also print ChronicleLogger status lines above that. The text menu keeps those lines off the screen.
 
 ```bash
 video-tube-editor join
@@ -301,6 +301,8 @@ The text menu needs a terminal and the curses module. When this Python cannot im
 MIT — see [`LICENSE.md`](./LICENSE.md). Also declared in `pyproject.toml`.
 
 ## Last Update
+
+2026-10-12 — **1.0.2**: Join puts Swap between Video 1 and Video 2. A finished edit file with size greater than zero becomes Video 1. The four pictures are captures of this window. The title is VideoTubeEditor 1.0.2. Version badge matches `pyproject.toml` and `__version__`.
 
 2026-10-12 — **1.0.1**: The distribution name is VideoTubeEditor. The console script is `video-tube-editor`. The module is `python -m VideoTubeEditor`. Aliases `video-join` and `video-speed` stay. Public home is [cloudgen/VideoTubeEditor](https://github.com/cloudgen/VideoTubeEditor). The four pictures are captures of this window. The title is VideoTubeEditor 1.0.1. Version badge matches `pyproject.toml` and `__version__`.
 

@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-video-ffmpeg-pipeline.md  
-**Status**: Active (Version 1.2.1)  
+**Status**: Active (Version 1.2.3)  
 **Area**: video  
 **Key**: `requirement-video-ffmpeg-pipeline`  
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -208,6 +208,7 @@ On Termux, Git Bash, Windows cmd, or the same class, FFmpeg runs as the normal u
 | 2026-10-04 | Active 1.2.0 | Questions live on the text screen. Temp, publish, and discard log lines are owned by the logging requirement |
 | 2026-10-12 | Active 1.2.1 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
 | 2026-10-12 | Active 1.2.2 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
+| 2026-10-12 | Active 1.2.3 | Release string is **1.0.2**. |
 
 ---
 

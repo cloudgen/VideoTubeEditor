@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-domain-videoeditor.md
-**Status**: Active (Version 1.0.2)
+**Status**: Active (Version 1.0.4)
 **Area**: domain
 **Key**: `requirement-domain-videoeditor`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -167,7 +167,7 @@ The domain sentence on the about page is this pillar. The page, the host check, 
 | Field | Content |
 |-------|---------|
 | Product name | VideoTubeEditor |
-| Version | `__version__`, the same string as `pyproject.toml` (current `1.0.0`) |
+| Version | `__version__`, the same string as `pyproject.toml` (current `1.0.2`) |
 | Domain summary | Concatenate two local videos, and cut, speed, or boomerang an MP4 |
 | Runtime tools | FFmpeg (copy, re-encode, cut, speed); OpenCV (duration) |
 | Entry points | `video-tube-editor`, `video-join`, `video-speed`, `python -m VideoTubeEditor` |
@@ -192,7 +192,7 @@ video-tube-editor help
 | **Edit classes** | `EditWalk` in `src/VideoTubeEditor/edit_walk.py`, `Encoder` in `src/VideoTubeEditor/encoder.py`, `FileStage` in `src/VideoTubeEditor/file_stage.py`, `MediaInfo` in `src/VideoTubeEditor/media_info.py`, `RunOutput` in `src/VideoTubeEditor/run_output.py` |
 | **About composer** | `AboutPage` in `src/VideoTubeEditor/about_page.py` |
 | **Entry** | `src/VideoTubeEditor/cli.py` |
-| **VERSION** | `1.0.0` (`__init__.py` and `pyproject.toml`) |
+| **VERSION** | `1.0.2` (`__init__.py` and `pyproject.toml`) |
 | **Join input formats** | `.mp4`, `.mov`, `.mkv`, `.avi`, `.m4v` (suffix match, case-insensitive) |
 | **Join scan** | Current working directory only. Not recursive. No folder prompt |
 | **Join output default** | `{vid1.stem} + {vid2.stem}.mp4` |
@@ -298,6 +298,7 @@ On Termux, Git Bash, Windows cmd, or the same class, join, list-videos, edit, an
 | 2026-10-11 | Active 1.0.1 | Current version string is **2.0.0**. Terminologies copies the ship-version term |
 | 2026-10-12 | Active 1.0.2 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
 | 2026-10-12 | Active 1.0.3 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
+| 2026-10-12 | Active 1.0.4 | Release string is **1.0.2**. |
 
 ---
 

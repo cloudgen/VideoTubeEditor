@@ -804,6 +804,7 @@ _WINDOW_KEYS = (
     "win_output_result",
     "win_resulting",
     "win_process",
+    "win_swap",
 )
 
 _WINDOW_ROWS = {
@@ -871,6 +872,7 @@ _WINDOW_ROWS = {
         "Output & Result",
         "Resulting Video",
         "Process {0}%",
+        "Swap",
     ),
     "zh-Hans": (
         "MP4",
@@ -936,6 +938,7 @@ _WINDOW_ROWS = {
         "输出与结果",
         "结果视频",
         "处理 {0}%",
+        "交换",
     ),
     "zh-Hant": (
         "MP4",
@@ -1001,6 +1004,7 @@ _WINDOW_ROWS = {
         "輸出與結果",
         "結果影片",
         "處理 {0}%",
+        "交換",
     ),
     "es": (
         "MP4",
@@ -1066,6 +1070,7 @@ _WINDOW_ROWS = {
         "Salida y resultado",
         "Vídeo resultante",
         "Proceso {0}%",
+        "Intercambiar",
     ),
     "ar": (
         "MP4",
@@ -1131,6 +1136,7 @@ _WINDOW_ROWS = {
         "الإخراج والنتيجة",
         "الفيديو الناتج",
         "المعالجة {0}%",
+        "تبديل",
     ),
     "fr": (
         "MP4",
@@ -1196,6 +1202,7 @@ _WINDOW_ROWS = {
         "Sortie et résultat",
         "Vidéo résultante",
         "Processus {0} %",
+        "Échanger",
     ),
     "pt": (
         "MP4",
@@ -1261,6 +1268,7 @@ _WINDOW_ROWS = {
         "Saída e resultado",
         "Vídeo resultante",
         "Processo {0}%",
+        "Trocar",
     ),
     "ru": (
         "MP4",
@@ -1326,6 +1334,7 @@ _WINDOW_ROWS = {
         "Вывод и результат",
         "Итоговое видео",
         "Процесс {0}%",
+        "Поменять",
     ),
     "de": (
         "MP4",
@@ -1391,6 +1400,7 @@ _WINDOW_ROWS = {
         "Ausgabe und Ergebnis",
         "Ergebnisvideo",
         "Prozess {0} %",
+        "Tauschen",
     ),
     "ja": (
         "MP4",
@@ -1456,6 +1466,7 @@ _WINDOW_ROWS = {
         "出力と結果",
         "結果の動画",
         "処理 {0}%",
+        "入れ替え",
     ),
     "ko": (
         "MP4",
@@ -1521,6 +1532,7 @@ _WINDOW_ROWS = {
         "출력과 결과",
         "결과 영상",
         "처리 {0}%",
+        "바꾸기",
     ),
     "nl": (
         "MP4",
@@ -1586,6 +1598,7 @@ _WINDOW_ROWS = {
         "Uitvoer en resultaat",
         "Resultaatvideo",
         "Proces {0}%",
+        "Wissel",
     ),
     "el": (
         "MP4",
@@ -1651,6 +1664,7 @@ _WINDOW_ROWS = {
         "Έξοδος και αποτέλεσμα",
         "Βίντεο αποτελέσματος",
         "Διαδικασία {0}%",
+        "Εναλλαγή",
     ),
 }
 

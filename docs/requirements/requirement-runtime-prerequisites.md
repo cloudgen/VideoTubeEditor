@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-runtime-prerequisites.md
-**Status**: Active (Version 1.1.6)
+**Status**: Active (Version 1.1.8)
 **Area**: runtime
 **Key**: `requirement-runtime-prerequisites`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -96,7 +96,7 @@ video-tube-editor setup
 | **Auto install command** | `setup` is the operator command. It does not use root. pip does not install FFmpeg. `setup` does not install GTK 4 or GStreamer |
 | **Platform notes** | Linux primary. macOS and Windows when FFmpeg and CPython are available. Windows CPython may ship `curses` without `_curses`. The import uses `try`. The picture window still needs `DISPLAY` and the host GTK 4 and GStreamer packages |
 | **Text-menu module** | `_curses` is not a `pyproject.toml` dependency. `import curses` in `tui.py`, `menu_painter.py`, and `menu_model.py` is inside `try` / `except ImportError`. `setup` on Windows may pip-install `windows-curses` when that import fails |
-| **Product version** | 1.0.1 |
+| **Product version** | 1.0.2 |
 | **Startup check** | FFmpeg is checked when `join` runs (`shutil.which` and `ffmpeg -version`). It is not a gate on the front board |
 | **User docs** | Root `README.md` names `video-tube-editor setup` and states FFmpeg is a system prerequisite. The picture window still needs `DISPLAY` |
 
@@ -203,6 +203,7 @@ On Termux, Git Bash, Windows cmd, or the same class, the normal user installs th
 | 2026-10-11 | Active 1.1.5 | Live product version is **2.0.0**. `setup` still does not install GTK 4 or GStreamer |
 | 2026-10-12 | Active 1.1.6 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
 | 2026-10-12 | Active 1.1.7 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
+| 2026-10-12 | Active 1.1.8 | Release string is **1.0.2**. |
 
 ---
 

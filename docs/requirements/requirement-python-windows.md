@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-python-windows.md
-**Status**: Active (Version 1.0.2)
+**Status**: Active (Version 1.0.4)
 **Area**: python
 **Key**: `requirement-python-windows`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -66,7 +66,7 @@ This file is the Windows host contract for a Python program that also runs on Li
 
 | Fact | Value |
 |------|--------|
-| Product | VideoTubeEditor. Console script `video-tube-editor`. Module `python -m VideoTubeEditor`. Product version **1.0.1**. This requirement does not bump that version |
+| Product | VideoTubeEditor. Console script `video-tube-editor`. Module `python -m VideoTubeEditor`. Product version **1.0.2**. This requirement does not bump that version |
 | Home | `https://github.com/cloudgen/VideoTubeEditor` |
 | Detect | `HostSetup.windows_host` in `src/VideoTubeEditor/host_setup.py` and `AboutPage._windows_host` in `src/VideoTubeEditor/about_page.py` use rule 1 |
 | Picture window | Class `Gui` in `src/VideoTubeEditor/gui.py`. `Cli.opens_window` in `src/VideoTubeEditor/cli.py` requires a non-empty `DISPLAY`, a terminal, and no verb. `Gui.open` sets `GDK_BACKEND` to `x11` |
@@ -210,6 +210,7 @@ On Termux, Git Bash, Windows cmd, or the same class, VideoTubeEditor runs as the
 | 2026-10-11 | Active 1.0.1 | The live product-version cell is **2.0.0**. This file does not cause that bump. Rule 13 still forbids bumping **1.1.0** only because this requirement was added |
 | 2026-10-12 | Active 1.0.2 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
 | 2026-10-12 | Active 1.0.3 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
+| 2026-10-12 | Active 1.0.4 | Release string is **1.0.2**. |
 
 ---
 

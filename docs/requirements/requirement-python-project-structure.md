@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-python-project-structure.md
-**Status**: Active (Version 1.1.4)
+**Status**: Active (Version 1.1.6)
 **Area**: python
 **Key**: `requirement-python-project-structure`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -70,7 +70,7 @@ Define the repository layout and the package structure for VideoJoin: where sour
 | Path | Role |
 |------|------|
 | `src/VideoTubeEditor/` | Installable package |
-| `src/VideoTubeEditor/__init__.py` | `__version__` (`1.0.1`) |
+| `src/VideoTubeEditor/__init__.py` | `__version__` (`1.0.2`) |
 | `src/VideoTubeEditor/__main__.py` | Module entry. Imports `main` from `cli` |
 | `src/VideoTubeEditor/cli.py` | Class `Cli` and `def main` |
 | `src/VideoTubeEditor/join.py` | Class `Join` |
@@ -172,6 +172,7 @@ On Termux, Git Bash, Windows cmd, or the same class, the package is the normal u
 | 2026-10-11 | Active 1.1.3 | The live `__version__` cell is **2.0.0**. The 1.1.2 note stays as history |
 | 2026-10-12 | Active 1.1.4 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
 | 2026-10-12 | Active 1.1.5 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
+| 2026-10-12 | Active 1.1.6 | Release string is **1.0.2**. |
 
 ---
 

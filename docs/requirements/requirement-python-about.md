@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-python-about.md
-**Status**: Active (Version 1.1.3)
+**Status**: Active (Version 1.1.5)
 **Area**: python
 **Key**: `requirement-python-about`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -193,7 +193,7 @@ Invocation: `video-join` on a terminal, then `8`, then `83`. The same page is `v
 | **TTY / Interactive** | `yes` or `no` from `sys.stdout.isatty()` |
 | **JSON** | Not claimed. No `--json` stream |
 | **Privilege** | normal user privilege |
-| **Product version** | `1.0.0` |
+| **Product version** | `1.0.2` |
 
 ### 2.3 Why This Requirement Exists (Direct CIAO Alignment)
 
@@ -314,6 +314,7 @@ TP-ABOUT-01 asserts the identity line, every host-check label, the star-box titl
 | 2026-10-11 | Active 1.1.2 | Sample identity, log line, and star box name package **2.0.0**. The box date is `2026-10-11`, the same string as `Cli.LAST_UPDATE`. The host-check stamp in the sample stays a clock example |
 | 2026-10-12 | Active 1.1.3 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
 | 2026-10-12 | Active 1.1.4 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
+| 2026-10-12 | Active 1.1.5 | Release string is **1.0.2**. |
 
 **Last Updated**: 2026-10-12
 **Owner**: project maintainers

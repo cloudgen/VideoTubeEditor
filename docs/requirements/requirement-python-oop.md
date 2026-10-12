@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-python-oop.md
-**Status**: Active (Version 1.0.6)
+**Status**: Active (Version 1.0.8)
 **Area**: python
 **Key**: `requirement-python-oop`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -236,6 +236,7 @@ class Cli:
 | 2026-10-10 | Active 1.0.5 | Class `HostSetup` owns `ensure_geteuid` and verb `setup`. `TP-OOP-*` stay todo |
 | 2026-10-12 | Active 1.0.6 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
 | 2026-10-12 | Active 1.0.7 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
+| 2026-10-12 | Active 1.0.8 | Release string is **1.0.2**. |
 
 ---
 

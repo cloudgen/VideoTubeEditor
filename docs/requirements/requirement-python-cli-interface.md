@@ -1,5 +1,5 @@
 **file**: docs/requirements/requirement-python-cli-interface.md
-**Status**: Active (Version 1.1.5)
+**Status**: Active (Version 1.1.7)
 **Area**: python
 **Key**: `requirement-python-cli-interface`
 **Philosophy**: CIAO **v2.10.2** / CIAO-Lite (Caution • Intentional • Anti-fragile • Over-engineered / Over-protect)
@@ -155,7 +155,7 @@ There is no folder question. Esc on the text screen returns to the front board a
 | **Parser** | After ChronicleLogger and the debug block |
 | **Quiet / JSON** | A text screen or `--json` sets the logger quiet. `--verbose` does not undo that |
 | **Privilege** | user-level only |
-| **Product version** | `1.0.0` |
+| **Product version** | `1.0.2` |
 | **User docs** | Root `README.md` Usage must match this contract when the behavior ships. This pass does not edit that README |
 
 ### 2.9 Why This Requirement Exists (CIAO)
@@ -258,6 +258,7 @@ On Termux, Git Bash, Windows cmd, or the same class, the person runs `video-join
 | 2026-10-11 | Active 1.1.4 | Product version is **2.0.0**. Terminologies copies the ship-version term |
 | 2026-10-12 | Active 1.1.5 | Distribution name is VideoEditor. Console script is `video-editor`. Current release string is **1.0.0**. |
 | 2026-10-12 | Active 1.1.6 | Renamed from VideoEditor. Distribution name is VideoTubeEditor. Console script is `video-tube-editor`. Aliases `video-join` and `video-speed` stay. Public home is `https://github.com/cloudgen/VideoTubeEditor`. Release string is **1.0.1**. |
+| 2026-10-12 | Active 1.1.7 | Release string is **1.0.2**. |
 
 ---
 

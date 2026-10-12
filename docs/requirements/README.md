@@ -2,17 +2,17 @@
 
 Authoritative specialized product law for **VideoTubeEditor** lives here.
 
-**Current state (2026-10-12):** Specialized **software-development** product. Left genesis. Registry is populated — see `index.md`. One Active domain file. Product version is **1.0.1**.
+**Current state (2026-10-12):** Specialized **software-development** product. Left genesis. Registry is populated — see `index.md`. One Active domain file. Product version is **1.0.2**.
 
 ## Product identity (summary)
 
 | Field | Value |
 |-------|--------|
 | Product / package | `VideoTubeEditor` |
-| Version SSOT | **`1.0.1`** (`pyproject.toml` + `src/VideoTubeEditor/__init__.py`) |
-| Product README SSOT | Root `README.md` (app-name, short description, target version **1.0.1**). Sections and pictures: `requirement-python-readme` |
+| Version SSOT | **`1.0.2`** (`pyproject.toml` + `src/VideoTubeEditor/__init__.py`) |
+| Product README SSOT | Root `README.md` (app-name, short description, target version **1.0.2**). Sections and pictures: `requirement-python-readme` |
 | Ship surface | Python package; console scripts **`video-tube-editor`**, **`video-join`**, **`video-speed`**; module `python -m VideoTubeEditor` |
-| Install mode | **pip / local package** (`pip install VideoTubeEditor`; this tree **1.0.1**; checkout `pip install -e .`) — not shell Type O |
+| Install mode | **pip / local package** (`pip install VideoTubeEditor`; this tree **1.0.2**; checkout `pip install -e .`) — not shell Type O |
 | Domain surface | `requirement-domain-videoeditor` — four pillars (join, edit, help, about). `requirement-domain-videojoin` is Superseded |
 | Text menu | `requirement-python-tui` — front rows join, edit, system-log, language, self-management, Exit. Default path word is `Path` |
 | Menu language | `requirement-python-cli-language` — row 4, thirteen codes, leaf `~/.local/VideoTubeEditor/language`. Window controls use the same codes. `language` is not an argv verb |
